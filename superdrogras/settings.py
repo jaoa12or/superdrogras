@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+from json import loads
+json_file = open('superdrogras/secrets.json').read()
+JSON_CONFIG_FILE = loads(json_file)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -63,6 +67,7 @@ TENANT_DOMAIN_MODEL = "franchise.Domain"  # Modelo que hereda de DomainMixin
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware', # Necesario que este en el top de los MIDDLEWARE
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -73,9 +78,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'superdrogras.tenant_urls'
 # Con esta línea se tiene una separación de las urls del tenant public  y de las urls para los tenants
 PUBLIC_SCHEMA_URLCONF = 'superdrogras.urls'
+
 
 TEMPLATES = [
     {
@@ -99,23 +106,13 @@ WSGI_APPLICATION = 'superdrogras.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': 'superdrogras',
-        'USER': 'superdrogras',
-        'PASSWORD': 'superdrogras',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    }
-}
-# Necesario para multitenant
+DATABASES = JSON_CONFIG_FILE['DATABASES']
+
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
 
 DOMAIN = '.localhost'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
