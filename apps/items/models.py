@@ -11,3 +11,6 @@ class Items(BaseModel):
     description = models.CharField(max_length=250,blank=False,null=True,verbose_name='Descripción')
     reference = models.CharField(max_length=150,blank=False,null=True,verbose_name='Referencia')
     supplier = models.CharField(max_length=150,blank=False,null=True,verbose_name='Proveedor')
+
+    def __str__(self):
+        return self.reference
