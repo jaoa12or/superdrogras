@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block title %}
-  Your shopping cart
+  Su carrito de compras
 {% endblock %}
 
 {% block content %}
-  <h1>Your shopping cart</h1>
+  <h1>Su carrito de compras</h1>
   <table class="cart">
     <thead>
       <tr>
-        <th>Image</th>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-        <th>Unit price</th>
-        <th>Price</th>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Eliminar</th>
+        <th>Precio x Unidad</th>
+        <th>Precio</th>
       </tr>
     </thead>
     <tbody>
@@ -50,9 +50,9 @@
     </tbody>
   </table>
   <p class="text-right">
-    <a href="{% url "shop:product_list" %}" class="button light">Continue shopping</a>
+    <a href="{% url "shop:product_list" %}" class="button light">Continuar Comprando</a>
     <a href="{% url "orders:order_create" %}" class="button">
-      Checkout
+      Proceder al pago
     </a>
   </p>
 {% endblock %}
