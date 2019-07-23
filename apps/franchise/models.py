@@ -16,6 +16,7 @@ from django_tenants.postgresql_backend.base import _is_valid_schema_name
 from apps.permissions.models import UserTenantPermissions, \
     PermissionsMixinFacade
 from django.http import HttpResponse
+from django.utils.html import escape
 
 # An existing user removed from a tenant
 tenant_user_removed = Signal(providing_args=["user", "tenant"])
@@ -277,7 +278,8 @@ class UserProfileManager(BaseUserManager):
             setattr(profile, attr, value)
         profile.save()
 
-        if connection.get_schema() != get_public_schema_name():
+
+        if connection.get_schema() == get_public_schema_name():
             # Get public tenant tenant and link the user
             public_tenant = get_tenant_model().objects.get(schema_name=get_public_schema_name())
             public_tenant.add_user(profile)
@@ -297,17 +299,6 @@ class UserProfileManager(BaseUserManager):
         tenant_user_created.send(sender=self.__class__, user=profile)
 
         return profile
-
-    def _create_user1(self, user_fields):
-        return HttpResponse(escape(repr(user_fields)))
-        # Do some schema validation to protect against calling create user from inside
-        # a tenant. Must create public tenant permissions during user creation. This
-        # happens during assign role. This function cannot be used until a public
-        # schema already exists
-        UserModel = get_user_model()
-
-        if not parameters.email:
-            raise ValueError("Users must have an email address.")
 
     def create_user(self, email=None, password=None, is_staff=False, **extra_fields):
         return self._create_user(email, password, is_staff, False, False, **extra_fields)

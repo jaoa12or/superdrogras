@@ -5,9 +5,50 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" action="{% url 'users:create' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-warning">
-    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Primer Nombre</th>
+                <th>Primer Apellido</th>
+                <th class="text-center">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.first_name_1 }}</td>
+                <td>{{ user.last_name_1 }}</td>
+                <td class="text-center">
+                    <button class="btn text-danger"><i class="fas fa-edit"></i></button>
+                    <button class="btn text-info"><i class="far fa-eye"></i></button>
+                    <button class="btn text-danger"><i class="far fa-trash-alt"></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if users.has_other_pages %}
+    <ul class="pagination">
+        {% if users.has_previous %}
+        <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in users.paginator.page_range %}
+        {% if users.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+        <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
 {% endblock %}
