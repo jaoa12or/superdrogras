@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block page_title %}
+    Listado de usuario de una franquicia
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="{% url 'users:create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-warning">
+    </form>
+{% endblock %}
