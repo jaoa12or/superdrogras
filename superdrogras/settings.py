@@ -54,6 +54,9 @@ TENANT_APPS = [
     'apps.users',
     'apps.items',
     'apps.inventory',
+    'apps.cart',
+    'apps.orders',
+    'apps.shop',
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -100,6 +103,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.cart.context_processors.cart',
             ],
         },
     },
@@ -161,3 +165,6 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
  )
+
+CART_SESSION_ID = 'cart'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
