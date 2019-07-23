@@ -19,7 +19,7 @@ def order_create(request):
             # clear the cart
             cart.clear()
             # launch asynchronous task
-            order_created.delay(order.id)
+            #order_created.delay(order.id) #resolver
             return render(request,
                           'orders/order/created.html',
                           {'order': order})

@@ -48,5 +48,12 @@ class Product(BaseModel):
     def get_absolute_url(self):
             return reverse('shop:product_detail',
                            args=[self.id, self.slug])
+    
+    def get_category(self):
+        if(self.category):
+            return self.category
+        else:
+            return "SIN CATEGORIA"
+
     def __str__(self):
         return self.reference

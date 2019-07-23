@@ -16,7 +16,7 @@
           {% if cart|length > 0 %}
             Tu carro: 
             <a href="{% url "cart:cart_detail" %}">
-              {{ total_items }} item{{ total_items|pluralize }},
+              {{ total_items }} Producto{{ total_items|pluralize }},
               ${{ cart.get_total_price }}
             </a>
           {% else %}
