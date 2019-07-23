@@ -1,7 +1,43 @@
 INSTRUCCIONES:
 
-1. En el archivo secrets.json, que se encuentra en drive, establecer los datos de su base de datos local. Cambiar el valor "ENGINE": con: "django_tenants.postgresql_backend",
+1. En el archivo secrets.json, que se encuentra en drive, establecer los datos de su base de datos local. Cambiar el valor "ENGINE": con: "django_tenants.postgresql_backend", poner el archivo secrets.json a la misma altura de settings.py
 
 2. Ejecutar en base de datos para tenants iniciales INSERT INTO "franchise_franchise" ("schema_name", "name","description","address","phone") VALUES ('public', 'public','public','public','public');
 
 3. Ejecutar en base de datos para tenants iniciales INSERT INTO "franchise_domain" ("domain", "is_primary", "tenant_id") VALUES ('localhost', true, 1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------
+No mire esto, pero tampoco lo borre
+export PATH=/Library/PostgreSQL/9.6/bin/:$PATH
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+select pg_terminate_backend(pid) from pg_stat_activity where datname='superdrogras';
+SET search_path TO

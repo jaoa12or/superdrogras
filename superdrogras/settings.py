@@ -35,11 +35,12 @@ ALLOWED_HOSTS = ['.localhost', '.127.0.0.1']
 # Application definition
 SHARED_APPS = [
     'django_tenants',
+    'apps.permissions',
     'apps.franchise',
-    'django.contrib.contenttypes',
-
-    'django.contrib.admin',
+    'apps.users',
     'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -49,6 +50,8 @@ SHARED_APPS = [
 ]
 
 TENANT_APPS = [
+    'apps.permissions',
+    'apps.users',
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,7 +67,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 
 TENANT_MODEL = "franchise.Franchise" # Modelo que hereda de TenantMixin
 TENANT_DOMAIN_MODEL = "franchise.Domain"  # Modelo que hereda de DomainMixin
-
+AUTH_USER_MODEL = 'users.TenantUser'
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware', # Necesario que este en el top de los MIDDLEWARE
 
