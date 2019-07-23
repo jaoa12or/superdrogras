@@ -68,6 +68,12 @@ class Franchise(TenantMixin):
     def __str__(self):
         return self.name
 
+    def delete(self, force_drop=False, *args, **kwargs):
+        if force_drop:
+            super().delete(force_drop, *args, **kwargs)
+        else:
+            raise DeleteError("Not supported -- delete_tenant() should be used.")
+
     @schema_required
     def add_user(self, user_obj, is_superuser=False, is_staff=False):
         # User already is linked here..
@@ -84,6 +90,31 @@ class Franchise(TenantMixin):
         user_obj.tenants.add(self)
 
         tenant_user_added.send(sender=self.__class__, user=user_obj, tenant=self)
+
+    @schema_required
+    def remove_user(self, user_obj):
+        raise InactiveError(user_obj.id)
+        # Test that user is already in the tenant
+        self.user_set.get(id=user_obj.id)
+        if not user_obj.is_active:
+            raise InactiveError("User specified is not an active user: %s" % user_obj)
+
+        # Dont allow removing an owner from a tenant. This must be done
+        # Through delete tenant or transfer_ownership
+        if user_obj.id == self.owner.id:
+            raise DeleteError("Cannot remove owner from tenant: %s" % self.owner)
+
+        user_tenant_perms = user_obj.usertenantpermissions
+
+        # Remove all current groups from user..
+        groups = user_tenant_perms.groups
+        groups.clear()
+
+        # Unlink from tenant
+        UserTenantPermissions.objects.filter(id=user_tenant_perms.id).delete()
+        user_obj.tenants.remove(self)
+
+        tenant_user_removed.send(sender=self.__class__, user=user_obj, tenant=self)
 
 
 class Domain(DomainMixin):
@@ -141,8 +172,11 @@ class TenantBase(TenantMixin):
 
     @schema_required
     def remove_user(self, user_obj):
+        raise InactiveError("Usdfsd1")
+
         # Test that user is already in the tenant
         self.user_set.get(id=user_obj.id)
+        raise InactiveError("Usdfsd1")
 
         if not user_obj.is_active:
             raise InactiveError("User specified is not an active user: %s" % user_obj)
@@ -310,29 +344,44 @@ class UserProfileManager(BaseUserManager):
         if not user_obj.is_active:
             raise InactiveError("User specified is not an active user!")
 
-        # Check to make sure we don't try to delete the public tenant owner
-        # that would be bad....
-        public_tenant = get_tenant_model().objects.get(schema_name=get_public_schema_name())
-        if user_obj.id == public_tenant.owner.id:
-            raise DeleteError("Cannot delete the public tenant owner!")
+        if connection.get_schema() == get_public_schema_name():
+            # Check to make sure we don't try to delete the public tenant owner
+            # that would be bad....
+            public_tenant = get_tenant_model().objects.get(schema_name=get_public_schema_name())
+            if user_obj.id == public_tenant.owner.id:
+                raise DeleteError("Cannot delete the public tenant owner!")
 
-        # This includes the linked public tenant 'tenant'. It will delete the
-        # Tenant permissions and unlink when user is deleted
-        for tenant in user_obj.tenants.all():
-            # If user owns the tenant, we call delete on the tenant
-            # which will delete the user from the tenant as well
-            if tenant.owner.id == user_obj.id:
-                # Delete tenant will handle any other linked users to that tenant
-                tenant.delete_tenant()
-            else:
+            # This includes the linked public tenant 'tenant'. It will delete the
+            # Tenant permissions and unlink when user is deleted
+            for tenant in user_obj.tenants.all():
+                # If user owns the tenant, we call delete on the tenant
+                # which will delete the user from the tenant as well
+                if tenant.owner.id == user_obj.id:
+                    # Delete tenant will handle any other linked users to that tenant
+                    tenant.delete_tenant()
+                else:
+                    # Unlink user from all roles in any tenant it doesn't own
+                    tenant.remove_user(user_obj)
+
+            # Set is_active, don't actually delete the object
+            user_obj.is_active = False
+            user_obj.save()
+
+            tenant_user_deleted.send(sender=self.__class__, user=user_obj)
+        else:
+            any_tenant = get_tenant_model().objects.get(schema_name=connection.get_schema())
+            # This includes the linked public tenant 'tenant'. It will delete the
+            # Tenant permissions and unlink when user is deleted
+            for tenant in user_obj.tenants.all():
                 # Unlink user from all roles in any tenant it doesn't own
                 tenant.remove_user(user_obj)
 
-        # Set is_active, don't actually delete the object
-        user_obj.is_active = False
-        user_obj.save()
+            # any_tenant.remove_user(user_obj)
+            # Set is_active, don't actually delete the object
+            user_obj.is_active = False
+            user_obj.save()
 
-        tenant_user_deleted.send(sender=self.__class__, user=user_obj)
+            tenant_user_deleted.send(sender=self.__class__, user=user_obj)
 
 # This cant be located in the users app otherwise it would get loaded into
 # both the public schema and all tenant schemas. We want profiles only
