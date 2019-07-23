@@ -29,6 +29,16 @@
                         <a class="dropdown-item" href="franchise/create">Crear Franquicia</a>
                       </div>
                     </li>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Items
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'items:create' %}">Crear Item</a>
+                        <a class="dropdown-item" href="{% url 'items:list' %}">Items</a>
+                      </div>
+                    </li>
                     {% endif %}
                   </ul>
                   <form class="form-inline my-2 my-lg-0">

@@ -52,6 +52,7 @@ SHARED_APPS = [
 TENANT_APPS = [
     'apps.permissions',
     'apps.users',
+    'apps.items',
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',

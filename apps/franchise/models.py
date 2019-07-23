@@ -401,3 +401,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixinFacade):
         return str(self)  # just use __unicode__ here.
 
 
+class BaseModel(models.Model):
+    is_active = models.BooleanField(default=True,null=True,blank=True,verbose_name='Activo')
+
+
