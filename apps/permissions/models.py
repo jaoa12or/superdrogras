@@ -3,21 +3,6 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-def schema_required(func):
-    def inner(self, *args, **options):
-        tenant_schema = self.schema_name
-        # Save current schema and restore it when we're done
-        saved_schema = connection.get_schema()
-        # Set schema to this tenants schema to start building permissions in that tenant
-        connection.set_schema(tenant_schema)
-        try:
-            result = func(self, *args, **options)
-        finally:
-            # Even if an exception is raised we need to reset our schema state
-            connection.set_schema(saved_schema)
-        return result
-    return inner
-
 class PermissionsMixinFacade(object):
     """
     This class is designed to shim the PermissionMixin class functions and

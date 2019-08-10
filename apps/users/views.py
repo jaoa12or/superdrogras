@@ -26,6 +26,18 @@ def users(request):
 
 	return render(request, 'users.html', { 'users': users })
 
+def create(request):
+	form = UserForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			TenantUser.objects.create_user(
+				email="user@evilcorp.com", 
+				password='password', is_active=True
+			)
+		return redirect('users:users')
+	else:
+		return render(request, 'user_form.html', { 'form': form })
+
 class UserCreateView(CreateView):
     model = TenantUser
     form_class = UserForm
