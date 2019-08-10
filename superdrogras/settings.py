@@ -34,13 +34,11 @@ ALLOWED_HOSTS = ['.localhost', '.127.0.0.1']
 
 # Application definition
 SHARED_APPS = [
-    'django_tenants',
-    'apps.permissions',
-    'apps.franchise',
     'apps.users',
+    'django_tenants',
+    'apps.franchise',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -50,8 +48,8 @@ SHARED_APPS = [
 ]
 
 TENANT_APPS = [
-    'apps.permissions',
     'apps.users',
+    'apps.roles',
     'apps.items',
     'apps.inventory',
     'apps.cart',
@@ -72,7 +70,9 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 
 TENANT_MODEL = "franchise.Franchise" # Modelo que hereda de TenantMixin
 TENANT_DOMAIN_MODEL = "franchise.Domain"  # Modelo que hereda de DomainMixin
-AUTH_USER_MODEL = 'users.TenantUser'
+AUTH_USER_MODEL = "users.User"
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL="/"
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware', # Necesario que este en el top de los MIDDLEWARE
 
@@ -127,18 +127,21 @@ DOMAIN = '.localhost'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        }
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 

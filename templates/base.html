@@ -16,62 +16,98 @@
                 </button>
               
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
+                  
+                    
                     {% if request.tenant.schema_name == 'public' %}
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Franquicias
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="franchise/create">Crear Franquicia</a>
-                      </div>
-                    </li>
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Franquicias
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="franchise/create">Crear Franquicia</a>
+                        </div>
+                      </li>
+                    </ul>
                     {% else %}
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuarios
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'users:create' %}">Crear Usuario</a>
-                        <a class="dropdown-item" href="{% url 'users:users' %}">Usuarios</a>
-                      </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Items
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'items:create' %}">Crear Item</a>
-                        <a class="dropdown-item" href="{% url 'items:list' %}">Items</a>
-                      </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Inventario
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'inventory:create' %}">Crear Entrada Inventario</a>
-                        <a class="dropdown-item" href="{% url 'inventory:list' %}">Inventario Items</a>
-                      </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tienda
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'shop:product_list' %}">Productos en Venta</a>
-                        <a class="dropdown-item" href="{% url 'cart:cart_detail' %}">Carrito</a>
-                      </div>
-                    </li>
+                      <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Roles
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'roles:create' %}">Crear Role</a>
+                            <a class="dropdown-item" href="{% url 'roles:roles' %}">Roles</a>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuarios
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'users:create' %}">Crear Usuario</a>
+                            <a class="dropdown-item" href="{% url 'users:users' %}">Usuarios</a>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Items
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'items:create' %}">Crear Item</a>
+                            <a class="dropdown-item" href="{% url 'items:list' %}">Items</a>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Inventario
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'inventory:create' %}">Crear Entrada Inventario</a>
+                            <a class="dropdown-item" href="{% url 'inventory:list' %}">Inventario Items</a>
+                          </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tienda
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'shop:product_list' %}">Productos en Venta</a>
+                            <a class="dropdown-item" href="{% url 'cart:cart_detail' %}">Carrito</a>
+                          </div>
+                        </li>
+                      </ul>
+                      {% if user.is_authenticated %}
+                      <ul class="navbar-nav ml-auto nav-flex-icons">
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                            {{user.get_full_name}}
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                          aria-labelledby="navbarDropdownMenuLink-333">
+                            <a class="dropdown-item" href="{% url 'users:logout' %}">Cerrar Sesión</a>
+                          </div>
+                        </li>
+                      </ul>
+                      {% else %}
+                      <ul class="navbar-nav ml-auto nav-flex-icons">
+                        <li class="nav-item">
+                          <a class="nav-link btn btn-secondary" href="{% url 'users:login' %}">
+                            Login
+                          </a>
+
+                        </li>
+                      </ul>
+                      {% endif %}
                     {% endif %}
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
                 </div>
               </nav>
               <div class="container" style="padding-top: 3rem;">

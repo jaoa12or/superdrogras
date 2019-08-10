@@ -1,35 +1,31 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block page_title %}
-    Listado de usuario de una franquicia
+    Listado de roles
 {% endblock %}
 
 {% block content %}
-    <a class="btn btn-info float-right" href="{% url 'users:create' %}">Nuevo Usuario</a>
+    <a class="btn btn-info float-right" href="{% url 'roles:create' %}">Nuevo Rol</a>
     <br>
     <hr>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Email</th>
-                <th>Primer Nombre</th>
-                <th>Primer Apellido</th>
+                <th>Nombre</th>
                 <th class="text-center">Opciones</th>
             </tr>
         </thead>
         <tbody>
-            {% for user in object_list %}
+            {% for role in object_list %}
             <tr>
-                <td>{{ user.email }}</td>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
+                <td>{{ role.name }}</td>
                 <td class="text-center">
-                    <a class="btn text-danger" href="{% url 'users:edit' pk=user.id %}"><i class="fas fa-edit"></i></a>
-                    <button class="btn text-info"><i class="far fa-eye"></i></button>
-                    <button class="btn text-danger" data-toggle="modal" data-target="#delete_modal_{{ user.id }}">
+                    <a class="btn text-danger" href="{% url 'roles:edit' pk=role.id %}"><i class="fas fa-edit"></i></a>
+                    <a class="btn text-info" href="{% url 'roles:detail' pk=role.id %}"><i class="far fa-eye"></i></a>
+                    <button class="btn text-danger" data-toggle="modal" data-target="#delete_modal_{{ role.id }}">
                         <i class="far fa-trash-alt"></i>
                     </button>
-                    <div class="modal fade" id="delete_modal_{{ user.id }}" tabindex="-1">
+                    <div class="modal fade" id="delete_modal_{{ role.id }}" tabindex="-1">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -39,10 +35,10 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Esta seguro de elimiar el usuario "{{ user.get_full_name }}"
+                                    Esta seguro de elimiar el rol "{{ role.name }}"?
                                 </div>
                                 <div class="modal-footer">
-                                    <form action="{% url 'users:delete' pk=user.id %}" method="POST">
+                                    <form action="{% url 'roles:delete' role.id %}" method="POST">
                                         {% csrf_token %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-danger">Aceptar</button>
@@ -57,22 +53,22 @@
         </tbody>
     </table>
 
-    {% if users.has_other_pages %}
+    {% if roles.has_other_pages %}
     <ul class="pagination">
-        {% if users.has_previous %}
-        <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% if roles.has_previous %}
+        <li><a href="?page={{ roles.previous_page_number }}">&laquo;</a></li>
         {% else %}
         <li class="disabled"><span>&laquo;</span></li>
         {% endif %}
-        {% for i in users.paginator.page_range %}
-        {% if users.number == i %}
+        {% for i in roles.paginator.page_range %}
+        {% if roles.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
         {% else %}
         <li><a href="?page={{ i }}">{{ i }}</a></li>
         {% endif %}
         {% endfor %}
-        {% if users.has_next %}
-        <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% if roles.has_next %}
+        <li><a href="?page={{ roles.next_page_number }}">&raquo;</a></li>
         {% else %}
         <li class="disabled"><span>&raquo;</span></li>
         {% endif %}

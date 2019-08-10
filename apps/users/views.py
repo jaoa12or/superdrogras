@@ -3,48 +3,59 @@ from django.db import connection
 from django.http import HttpResponse
 from django.utils.html import escape
 from .forms import UserForm
-from .models import TenantUser
-from django.views.generic import ListView,CreateView,UpdateView,DeleteView,DetailView
+from .models import User
+from django.contrib.auth.models import Group
+from django.views.generic import ListView,CreateView,UpdateView,DeleteView,DetailView,TemplateView
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.franchise.compat import get_public_schema_name, get_tenant_model
 
-class InactiveError(Exception):
-    pass
+class UserListView(ListView):
+    model = User
+    template_name = 'users.html'
 
-def users(request):
-	users_list = TenantUser.objects.filter(is_active=True)
-	page = request.GET.get('page', 1)
-	paginator = Paginator(users_list, 2)
+def create(request):
+    form = UserForm(request.POST or None, user=request.user)
+    if request.method == 'POST':
+        if form.is_valid():
+            user = form.save()
+            for g in request.POST.getlist('groups'):
+                group = Group.objects.get(pk=g)
+                user.groups.add(group)
+            return redirect('users:users')
+    return render(request, 'user_form.html', {'form':form})
 
-	try:
-		users = paginator.page(page)
-	except PageNotAnInteger:
-		users = paginator.page(1)
-	except EmptyPage:
-		users = paginator.page(paginator.num_pages)
-
-	return render(request, 'users.html', { 'users': users })
+def edit(request, pk):
+    instance = get_object_or_404(User, pk=pk)
+    form = UserForm(request.POST or None, instance=instance, user=request.user)
+    if request.method == 'POST':
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = request.POST.get('password1', '')
+            if password == '':
+                user.password = instance.password
+            user = form.save()
+            user.groups.clear()
+            for g in request.POST.getlist('groups'):
+                group = Group.objects.get(pk=g)
+                user.groups.add(group)
+            return redirect('users:users')
+    return render(request, 'user_form.html', {'form':form})
 
 class UserCreateView(CreateView):
-    model = TenantUser
+    model = User
     form_class = UserForm
     template_name = 'user_form.html'
     success_url = reverse_lazy('users:users')
 
 class UserUpdateView(UpdateView):
-    model = TenantUser
+    model = User
     form_class = UserForm
     template_name = 'user_form.html'
     success_url = reverse_lazy('users:users')
 
-def delete(request, pk):
-	if request.method == 'POST':
-		user = get_object_or_404(TenantUser, pk=pk)
-		# return HttpResponse(escape(repr(user.id)))
-		TenantUser.objects.delete_user(user)
-		return redirect('users:users')
-	else:
-		return redirect('users:users')
-
+class UserDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('users:users')
+		
 
