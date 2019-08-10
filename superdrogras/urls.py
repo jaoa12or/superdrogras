@@ -15,10 +15,11 @@ Including another URLconf
 """
 
 from django.urls import path, include
-
+from django.conf import settings
 from apps.franchise.views import home
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name='home'),
     path('franchise/', include('apps.franchise.urls', namespace='franchise')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
