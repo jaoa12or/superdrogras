@@ -1,5 +1,8 @@
 import axios from 'axios';
+
 const API_URL = 'http://localhost:8000/franchise/';
+let host = window.location.host;
+console.log(host);
 
 export default class Franchise{
 
