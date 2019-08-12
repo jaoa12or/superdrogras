@@ -1,9 +1,11 @@
 import React from 'react';
 import {Row, Col, Card, Table} from 'react-bootstrap';
+import { API_URL } from '../../../store/constant';
 
 import Aux from "../../../hoc/_Aux";
 
-const API_URL = 'http://uno.localhost:8000/users/api/users';
+let PATH = 'users/api/users';
+
 
 class UsersTable extends React.Component {
 
@@ -11,7 +13,7 @@ class UsersTable extends React.Component {
         const init ={
             method:'GET',
         }
-        fetch(API_URL, init).then(r=>{
+        fetch(API_URL + PATH, init).then(r=>{
             return r.json()
         }).then(data=>{
             this.setState({users:data})
