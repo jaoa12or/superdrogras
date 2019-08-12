@@ -87,14 +87,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny'
-    ]
-}
-
 ROOT_URLCONF = 'superdrogras.tenant_urls'
 # Con esta línea se tiene una separación de las urls del tenant public  y de las urls para los tenants
 PUBLIC_SCHEMA_URLCONF = 'superdrogras.urls'
@@ -191,9 +183,12 @@ JWT_AUTH = {
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
- )
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',
+#     'http://uno.localhost:3000',
+#     'http://tres.localhost:3000',
+#  )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
