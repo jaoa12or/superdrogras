@@ -25,6 +25,12 @@ const GoogleMap = React.lazy(() => import('./Demo/Maps/GoogleMap/index'));
 
 const OtherSamplePage = React.lazy(() => import('./Demo/Other/SamplePage'));
 const OtherDocs = React.lazy(() => import('./Demo/Other/Docs'));
+// franchise
+const CreateFranchise =  React.lazy(() => import('./components/Franchise/CreateFranchise/CreateFranchise'));
+const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFranchises/ListFranchises'));
+
+//Rutas para usuarios
+const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
 
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
@@ -40,6 +46,11 @@ const routes = [
     { path: '/maps/google-map', exact: true, name: 'Google Map', component: GoogleMap },
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
+    { path: '/users', exact: true, name: 'UserList', component: UserList },
+    // franchise
+    { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
+    { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
+    { path: '/franchise/list', exact: true, name: 'List Franchises', component: ListFranchises },
 ];
 
 export default routes;

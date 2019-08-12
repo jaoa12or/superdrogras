@@ -4,8 +4,10 @@ from django.http import HttpResponse
 from django.utils.html import escape
 from .forms import UserForm
 from .models import User
+from .serializers import UserSerializer
 from django.contrib.auth.models import Group
 from django.views.generic import ListView,CreateView,UpdateView,DeleteView,DetailView,TemplateView
+from rest_framework import viewsets 
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.franchise.compat import get_public_schema_name, get_tenant_model
@@ -57,5 +59,12 @@ class UserUpdateView(UpdateView):
 class UserDeleteView(DeleteView):
     model = User
     success_url = reverse_lazy('users:users')
+
+class UserView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()  
 		
+def current_user(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
 
