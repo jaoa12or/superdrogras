@@ -57,7 +57,7 @@ class NavRight extends Component {
             )
         }else{
             return (
-                <Dropdown.Menu alignRight className="profile-notification">
+                <Dropdown.Menu alignRight className="profile-notification" >
                     <ul className="pro-body">
                         <li>
                             <a href={DEMO.BLANK_LINK} className="dropdown-item" href="/login">

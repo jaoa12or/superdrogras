@@ -7,7 +7,7 @@ const API_URL = 'http://uno.localhost:8000/users/api/users';
 
 class UsersTable extends React.Component {
 
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
         const init ={
             method:'GET',
         }

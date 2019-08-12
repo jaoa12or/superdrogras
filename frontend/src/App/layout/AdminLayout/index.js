@@ -22,7 +22,7 @@ class AdminLayout extends Component {
         }
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (this.props.windowWidth > 992 && this.props.windowWidth <= 1024 && this.props.layout !== 'horizontal') {
             this.props.onComponentWillMount();
         }

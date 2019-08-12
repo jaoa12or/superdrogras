@@ -3,9 +3,6 @@ const API_URL = 'http://localhost:8000/franchise/';
 
 export default class Franchise{
 
-    constructor(){}
-
-
     getFranchises() {
         const url = `${API_URL}api/`;
         return axios.get(url).then(response => response.data);

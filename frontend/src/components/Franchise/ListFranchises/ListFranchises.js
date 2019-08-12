@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col, Card, Table, Button,Pagination} from 'react-bootstrap';
-import { Route, Link } from  'react-router-dom'
+import { Link } from  'react-router-dom'
 
 import Aux from "../../../hoc/_Aux";
 import  Franchise  from  '../Franchise';
@@ -89,7 +89,7 @@ class ListFranchises extends React.Component {
                                         {this.state.franchises.map( fr  =>
                                         <tr key={fr.id}>
                                             
-                                            <td scope="row">{fr.name}</td>
+                                            <td>{fr.name}</td>
                                             <td>{fr.schema_name}</td>
                                             <td>{fr.description}</td>
                                             <td>{fr.address}</td>
