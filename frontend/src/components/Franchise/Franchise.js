@@ -6,9 +6,6 @@ console.log(host);
 
 export default class Franchise{
 
-    constructor(){}
-
-
     getFranchises() {
         const url = `${API_URL}api/`;
         return axios.get(url).then(response => response.data);

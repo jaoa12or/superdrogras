@@ -175,6 +175,21 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'datta-able-rv18.0.4/static'),
 ]
 
+REST_FRAMEWORK  = {
+    ' DEFAULT_PERMISSION_CLASSES ' : (
+        ' rest_framework.permissions.IsAuthenticated ' ,
+    ),
+    ' DEFAULT_AUTHENTICATION_CLASSES ' : (
+        ' rest_framework_jwt.authentication.JSONWebTokenAuthentication ' ,
+        ' rest_framework.authentication.SessionAuthentication ' ,
+        ' rest_framework.authentication.BasicAuthentication ' ,
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.utils.my_jwt_response_handler'
+}
+
 # we whitelist localhost:3000 because that's where frontend will be served
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
