@@ -45,6 +45,7 @@ SHARED_APPS = [
     'corsheaders',
     'rest_framework',
     'bootstrap4',
+    'webpack_loader',
 ]
 
 TENANT_APPS = [
@@ -86,6 +87,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
 
 ROOT_URLCONF = 'superdrogras.tenant_urls'
 # Con esta línea se tiene una separación de las urls del tenant public  y de las urls para los tenants
@@ -163,6 +171,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'datta-able-rv18.0.4/static'),
+]
 
 # we whitelist localhost:3000 because that's where frontend will be served
 CORS_ORIGIN_WHITELIST = (

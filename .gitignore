@@ -64,6 +64,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+webpack-stats-local.json
 
 # Translations
 *.mo
