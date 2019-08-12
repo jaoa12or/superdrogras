@@ -33,7 +33,6 @@ INSTRUCCIONES:
 
 
 
-
 ------------------------------------------------------------------
 No mire esto, pero tampoco lo borre
 export PATH=/Library/PostgreSQL/9.6/bin/:$PATH
