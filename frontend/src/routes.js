@@ -32,6 +32,10 @@ const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFran
 //Rutas para usuarios
 const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
 
+// shop
+const ProductList =  React.lazy(() => import('./components/Shop/ProductList/ProductList'));
+//const ProductDetail =  React.lazy(() => import('./components/Shop/ProductDetail/ProductDetail'));
+
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
     { path: '/basic/button', exact: true, name: 'Basic Button', component: UIBasicButton },
@@ -51,6 +55,10 @@ const routes = [
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
     { path: '/franchise/list', exact: true, name: 'List Franchises', component: ListFranchises },
+    //shop
+    { path: '/shop', exact: true, name: 'Shop Product List', component: ProductList },
+    { path: '/shop/:category_slug', exact: true, name: 'Shop Product List By Category', component: ProductList },
+    //{ path: '/shop/:product_id/:product_slug', exact: true, name: 'Product Detail', component: ProductDetail },
 ];
 
 export default routes;
