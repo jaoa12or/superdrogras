@@ -6,6 +6,7 @@ from .forms import CartAddProductForm
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from apps.shop.serializers import ProductSerializer
+import json
 
 @require_POST
 def cart_add(request, product_id):
@@ -36,7 +37,7 @@ def cart_detail(request):
     return render(request, 'cart/detail.html', {'cart': cart})
 
 
-class CartList(APIView):
+class CartAPI(APIView):
     def get(self, request, format=None):
         cart = Cart(request)
         products = []
@@ -47,3 +48,21 @@ class CartList(APIView):
             products.append(product)
         cart_dict = {'total_price': cart.get_total_price(), 'products': products}
         return Response(cart_dict)
+
+    def post(self, request, format=None):
+        product_dict = request.data
+        product = get_object_or_404(Product, id=product_dict['pk'])
+        cart = Cart(request)
+        cart.add(product=product,
+                 quantity=1,
+                 update_quantity=1)
+        return Response({"success": True})
+
+    def delete(self, request, format=None):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        pk_product = body['product']['pk']
+        product = get_object_or_404(Product, id=pk_product)
+        cart = Cart(request)
+        cart.remove(product)
+        return Response({"success": True})
