@@ -31,6 +31,7 @@ const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFran
 
 //Rutas para usuarios
 const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
+const CreateUser = React.lazy(() => import('./components/Users/CreateUser/CreateUser'));
 
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
@@ -46,7 +47,9 @@ const routes = [
     { path: '/maps/google-map', exact: true, name: 'Google Map', component: GoogleMap },
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
+    // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
+    { path: '/users/create', exact: true, name: 'CreateUser', component: CreateUser },
     // franchise
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
