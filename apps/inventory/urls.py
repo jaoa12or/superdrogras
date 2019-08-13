@@ -1,5 +1,6 @@
 from django.urls import path
-from apps.inventory.views import InventoryListView,InventoryDetailView,InventoryCreateView,InventoryUpdateView,InventoryDeleteView
+from apps.inventory.views import InventoryListView,InventoryDetailView,InventoryCreateView,InventoryUpdateView,InventoryDeleteView,InventoryViewSet
+
 
 app_name = 'inventory'
 
