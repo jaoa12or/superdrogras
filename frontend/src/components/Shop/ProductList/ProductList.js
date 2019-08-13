@@ -1,7 +1,7 @@
 import React from 'react';
-import {Row, Col, Card, Table, Button,Pagination} from 'react-bootstrap';
+import {Row, Col, Card, Button,Pagination} from 'react-bootstrap';
 import { Link } from  'react-router-dom'
-
+import { PRODUCTS_BY_PAGE } from '../../../store/constant';
 import Aux from "../../../hoc/_Aux";
 import  Shop  from  '../Shop';
 const  shop  =  new  Shop();
@@ -13,38 +13,40 @@ class ProductList extends React.Component {
             products: [],
             nextPageURL:  '',
             prevPageURL:  '',
-            numPages:  ''
+            numPages:  '',
         };
         this.nextPage  =  this.nextPage.bind(this);
         this.prevPage  =  this.prevPage.bind(this);
-        this.handleDelete  =  this.handleDelete.bind(this);
         var  self  =  this;
-        shop.getProducts(this.state.numPages).then((result) => {
-            self.setState({ numPages:  result.numpages})
+        shop.getProducts().then((result) => {
+            self.setState({ products:  result.results, nextPageURL: result.next, prevPageURL: result.previous, numPages: result.count / PRODUCTS_BY_PAGE})
         });
     }
     componentDidMount() {
         var  self  =  this;
         shop.getProducts().then(function (result) {
-            self.setState({ products:  result.data, nextPageURL:  result.nextlink})
+            self.setState({ products:  result.results, nextPageURL: result.next, prevPageURL: result.previous, numPages: result.count / PRODUCTS_BY_PAGE})
         });
     }
 
     nextPage(){
         var  self  =  this;
-        shop.getFranchiseByURL(this.state.nextPageURL).then((result) => {
-            self.setState({ franchises:  result.data, nextPageURL:  result.nextlink})
+        shop.getProductsByURL(this.state.nextPageURL).then((result) => {
+            self.setState({ products:  result.results, nextPageURL: result.next, prevPageURL: result.previous, numPages: result.count / PRODUCTS_BY_PAGE})
         });
     }
 
     prevPage(){
         var  self  =  this;
-        shop.getFranchiseByURL(this.state.prevPageURL).then((result) => {
-            self.setState({ franchises:  result.data, prevPageURL:  result.prevlink})
+        shop.getProductsByURL(this.state.prevPageURL).then((result) => {
+            self.setState({ products:  result.results, nextPageURL: result.next, prevPageURL: result.previous, numPages: result.count / PRODUCTS_BY_PAGE})
         });
     }
     render() {
         let items = [];
+        items.push(
+            <Pagination.Prev key="prev" onClick={this.prevPage} />
+        );
         for (let number = 1; number <= (this.state.numPages + 1); number++) {
             items.push(
                 <Pagination.Item key={number}>
@@ -52,55 +54,30 @@ class ProductList extends React.Component {
                 </Pagination.Item>
             );
         }
+        items.push(
+            <Pagination.Next key="next" onClick={this.nextPage} />
+        );
         return (
             <Aux>
-                <Row>
-                    <Col>
-                        
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as="h5">Franquicias</Card.Title>
-                                <span className="d-block m-t-5">Listado de Franquicias</span>
-                            </Card.Header>
-                            <Card.Body>
-                                <Table responsive hover>
-                                    <thead>
-                                    <tr>
-                                        
-                                        <th>Nombre</th>
-                                        <th>Subdominio</th>
-                                        <th>Descripción</th>
-                                        <th>Dirección</th>
-                                        <th>Teléfono</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.state.franchises.map( fr  =>
-                                        <tr key={fr.id}>
-                                            
-                                            <td>{fr.name}</td>
-                                            <td>{fr.schema_name}</td>
-                                            <td>{fr.description}</td>
-                                            <td>{fr.address}</td>
-                                            <td>{fr.phone}</td>
-                                            <td>
-                                            <Link to={"/franchise/update/" + fr.id}>
-                                            <Button variant="secondary">
-                                                Editar
-                                            </Button>
-                                            </Link>
-                                            </td>
-
-                                        </tr>
-                                    )}
-                                    </tbody>
-                                </Table>
-                                <Pagination>{items}</Pagination>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                <Row noGutters={true}>
+                    {this.state.products.map( product  =>
+                        <Col  key={product.pk}>
+                            <Card style={{ width: '18rem' }}>
+                                <Card.Img variant="top" src={product.image} />
+                                    <Card.Body>
+                                    <Card.Title>{product.id_product}</Card.Title>
+                                    <Card.Text>
+                                        ${product.price}
+                                    </Card.Text>
+                                    <Link to={"/shop/" + product.pk + "/" + product.slug}>
+                                        <Button variant="primary">Ver Detalle</Button>
+                                    </Link>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )}
                 </Row>
+                <Pagination>{items}</Pagination>
             </Aux>
         );
     }

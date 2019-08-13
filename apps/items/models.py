@@ -2,6 +2,7 @@ from django.db import models
 from apps.franchise.models import BaseModel
 from django.urls import reverse
 
+
 class Category(models.Model):
     name = models.CharField(max_length=200,
                             db_index=True)
@@ -19,6 +20,7 @@ class Category(models.Model):
     def get_absolute_url(self):
             return reverse('shop:product_list_by_category',
                            args=[self.slug])
+
 
 class Product(BaseModel):
     category = models.ForeignKey(Category, null=True, related_name='products', on_delete=models.CASCADE)
