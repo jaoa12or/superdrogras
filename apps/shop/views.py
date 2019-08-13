@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from apps.items.models import Category, Product
 from apps.cart.forms import CartAddProductForm
+from rest_framework import generics
+from apps.core.pagination import StandardResultsSetPagination
+from .serializers import  ProductSerializer
 
 
 def product_list(request, category_slug=None):
@@ -28,3 +31,13 @@ def product_detail(request, id, slug):
                   {'product': product,
                    'cart_product_form': cart_product_form})
 
+
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    pagination_class = StandardResultsSetPagination
+
+
+class ProductDetailView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer

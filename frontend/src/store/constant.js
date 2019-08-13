@@ -7,5 +7,5 @@ let host = window.location.host;
 let parts = host.split(":");
 let protocol = window.location.protocol;
 export const API_URL = protocol + '//' + parts[0] + port + '/';
-
+export const PRODUCTS_BY_PAGE = 16;
 export default DEMO;

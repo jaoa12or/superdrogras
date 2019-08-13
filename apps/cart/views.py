@@ -3,7 +3,9 @@ from django.views.decorators.http import require_POST
 from apps.items.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from apps.shop.serializers import ProductSerializer
 
 @require_POST
 def cart_add(request, product_id):
@@ -32,3 +34,16 @@ def cart_detail(request):
                               initial={'quantity': item['quantity'],
                               'update': True})
     return render(request, 'cart/detail.html', {'cart': cart})
+
+
+class CartList(APIView):
+    def get(self, request, format=None):
+        cart = Cart(request)
+        products = []
+        for item in cart:
+            product_serializer = ProductSerializer(item['product'], context={'request': request}) # context for full image path
+            product = {'product': product_serializer.data, 'quantity': item['quantity'],
+                       'price': item['price'], 'total_price': item['total_price']}
+            products.append(product)
+        cart_dict = {'total_price': cart.get_total_price(), 'products': products}
+        return Response(cart_dict)
