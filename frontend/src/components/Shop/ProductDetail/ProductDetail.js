@@ -4,15 +4,16 @@ import { Link } from  'react-router-dom'
 import './ProductDetail.css';
 import Aux from "../../../hoc/_Aux";
 import  Shop  from  '../Shop';
+import Cart from '../../Cart/Cart';
 const  shop  =  new  Shop();
-
+const cart = new Cart();
 
 
 class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state  = {
-            product: [],
+            product: {},
             pk: props.match.params.pk,
             slug: props.match.params.product_slug
         };
@@ -21,6 +22,12 @@ class ProductDetail extends React.Component {
         var  self  =  this;
         shop.getProduct(this.state.pk, this.state.slug).then(function (result) {
             self.setState({ product:  result})
+        });
+    }
+
+    addProductToCartClick(product){
+        cart.addProductToCart(product).then(function (result) {
+            console.log(result);
         });
     }
 
@@ -53,7 +60,9 @@ class ProductDetail extends React.Component {
                                             <h4 className="price">Precio: <span>${this.state.product.price}</span></h4>
                                             <div className="action">
                                                 <Link to={ "/shop/" + this.state.product.pk + "/" + this.state.product.slug}>
-                                                <Button className="add-to-cart btn btn-default">Añadir al Carrito</Button>
+                                                <Button onClick={(e) => {
+                                                            this.addProductToCartClick(this.state.product)
+                                                }} className="add-to-cart btn btn-default">Añadir al Carrito</Button>
                                                 </Link>
                                             </div>
                                         </div>
