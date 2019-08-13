@@ -12,6 +12,7 @@ import Avatar3 from '../../../../../assets/images/user/avatar-3.jpg';
 
 
 class NavRight extends Component {
+
     state = {
         listOpen: false,
         logged_in: localStorage.getItem('token') ? true : false,
@@ -38,7 +39,7 @@ class NavRight extends Component {
 
         if (logged_in) {
             return (
-                <Dropdown.Menu alignRight className="profile-notification">
+                <div>
                     <div className="pro-head">
                         <img src={Avatar1} className="img-radius" alt="User Profile"/>
                         <span>John Doe</span>
@@ -53,18 +54,18 @@ class NavRight extends Component {
                         <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-mail"/> My Messages</a></li>
                         <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-lock"/> Lock Screen</a></li>
                     </ul>
-                </Dropdown.Menu>
+                </div>
             )
         }else{
             return (
-                <Dropdown.Menu alignRight className="profile-notification" >
-                    <ul className="pro-body">
+                <div>
+                    <ul className="pro-body" key='2'>
                         <li>
-                            <a href={DEMO.BLANK_LINK} className="dropdown-item" href="/login">
+                            <a className="dropdown-item" href="/login" key='3'> 
                             <i className="feather icon-settings"/> Login</a>
                         </li>
                     </ul>
-                </Dropdown.Menu>
+                </div>
             )
         }
     };
@@ -138,7 +139,9 @@ class NavRight extends Component {
                             <Dropdown.Toggle variant={'link'} id="dropdown-basic">
                                 <i className="icon feather icon-settings"/>
                             </Dropdown.Toggle>
-                            {this.renderMenuAccount()}
+                            <Dropdown.Menu alignRight className="profile-notification">
+                                {this.renderMenuAccount()}
+                            </Dropdown.Menu>
                         </Dropdown>
                     </li>
                 </ul>
