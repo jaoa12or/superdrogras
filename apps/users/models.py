@@ -9,6 +9,7 @@ class User(AbstractUser):
 	birthday = models.DateField(null=True, blank=True)
 	phone = models.CharField(max_length=11, null=True, blank=True)
 	phone2 = models.CharField(max_length=11, null=True, blank=True)
+	
 	def __str__(self):
-		return self.get_full_name		
+		return self.username		
 

@@ -62,7 +62,14 @@ class UserDeleteView(DeleteView):
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()  
+    queryset = User.objects.all()
+    form_class = UserForm
+
+    def get(self, request, format=None):
+        return Response()
+
+    def post(self, request):
+        return Response()
 		
 def current_user(request):
     serializer = UserSerializer(request.user)

@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import {Form} from 'react-bootstrap';
 import './../../../assets/scss/style.scss';
 import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
@@ -9,8 +10,7 @@ class Login extends React.Component {
     state = {
         username: '',
         password: '',
-        username_error: '',
-        password_error: ''
+        errors: []
     };
 
     handle_change = e => {
@@ -40,47 +40,21 @@ class Login extends React.Component {
                     username: json.user.username
                 });
                 this.props.history.push('/users')
-            }else if(typeof json.username !== 'undefined' || typeof json.password !== 'undefined'){
-                if(typeof json.username !== 'undefined'){
-                    this.setState(prevstate => {
-                        const newState = { ...prevstate };
-                        newState['username_error'] = json.username;
-                        return newState;
-                    });
-                }
-                if(typeof json.password !== 'undefined'){
-                    this.setState(prevstate => {
-                        const newState = { ...prevstate };
-                        newState['password_error'] = json.password;
-                        return newState;
-                    });
-                }
+            }else {
+                this.setState(prevstate => {
+                    const newState = { ...prevstate };
+                    //Setear errores para mostrar
+                    newState['errors'] = json;
+                    return newState;
+                });
             }
         });
     };
 
-
-    renderError() {
-        const { username_error } = this.state;
-        const { password_error } = this.state;
-    
-        if (username_error) {
-
-            return (
-                <span className="text-danger" role="alert">
-                    <strong>{username_error}</strong>
-                </span>
-            )
-        }
-
-        if (password_error) {
-            return (
-                <span className="text-danger" role="alert">
-                    <strong>{password_error}</strong>
-                </span>
-            )
-        }
-    
+    renderError(item){        
+        if (typeof this.state.errors[item] !== 'undefined') {
+            return (<Form.Text className="text-danger">{this.state.errors[item]}</Form.Text>)
+        }       
         return null;
     }
 
@@ -103,6 +77,7 @@ class Login extends React.Component {
                                         <i className="feather icon-user-plus auth-icon"/>
                                     </div>
                                     <h3 className="mb-4">Login</h3>
+                                    {this.renderError("non_field_errors")}
                                     <div className="form-group">
                                         <input 
                                         type="text" 
@@ -112,7 +87,7 @@ class Login extends React.Component {
                                         onChange={this.handle_change} 
                                         placeholder="Username"
                                         />
-                                        {this.renderError()}
+                                        {this.renderError("username")}
                                     </div>
                     
                                     <div className="form-group">
@@ -124,7 +99,7 @@ class Login extends React.Component {
                                         onChange={this.handle_change} 
                                         placeholder="password"
                                         />
-                                        {this.renderError()}
+                                        {this.renderError("password")}
                                     </div>
                                     
                                     <button type="submit" className="btn btn-primary shadow-2 mb-4">Ingresar</button>
