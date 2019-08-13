@@ -5,6 +5,10 @@ import './../../../assets/scss/style.scss';
 import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 
+import { API_URL } from '../../../store/constant';
+
+let PATH = 'users/token-auth/';
+
 class Login extends React.Component {
 
     state = {
@@ -25,7 +29,7 @@ class Login extends React.Component {
 
     handle_login = (e, data) => {
         e.preventDefault();
-        fetch('http://uno.localhost:8000/users/token-auth/', {
+        fetch(`${API_URL + PATH}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +43,7 @@ class Login extends React.Component {
                     displayed_form: '',
                     username: json.user.username
                 });
-                this.props.history.push('/users')
+                this.props.history.push('/')
             }else {
                 this.setState(prevstate => {
                     const newState = { ...prevstate };

@@ -25,6 +25,10 @@ const GoogleMap = React.lazy(() => import('./Demo/Maps/GoogleMap/index'));
 
 const OtherSamplePage = React.lazy(() => import('./Demo/Other/SamplePage'));
 const OtherDocs = React.lazy(() => import('./Demo/Other/Docs'));
+
+//Home
+const Dashboard =  React.lazy(() => import('./components/Dashboard/Dashboard'));
+
 // franchise
 const CreateFranchise =  React.lazy(() => import('./components/Franchise/CreateFranchise/CreateFranchise'));
 const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFranchises/ListFranchises'));
@@ -62,6 +66,8 @@ const routes = [
     { path: '/maps/google-map', exact: true, name: 'Google Map', component: GoogleMap },
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
+    //home
+    { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
     // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
     { path: '/users/create', exact: true, name: 'CreateUser', component: CreateUser },
