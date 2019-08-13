@@ -21,7 +21,7 @@ class UsersTable extends React.Component {
         //Get users for list
         usersconnection.getUsers().then(
             data => { 
-                this.setState({users:data})
+                this.setState({users:data.results})
             }
         )
     }
