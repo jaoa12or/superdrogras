@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Dropdown} from 'react-bootstrap';
+import { Redirect } from 'react-router'
 
 import ChatList from './ChatList';
 import Aux from "../../../../../hoc/_Aux";
@@ -9,13 +10,67 @@ import Avatar1 from '../../../../../assets/images/user/avatar-1.jpg';
 import Avatar2 from '../../../../../assets/images/user/avatar-2.jpg';
 import Avatar3 from '../../../../../assets/images/user/avatar-3.jpg';
 
+
 class NavRight extends Component {
+
     state = {
-        listOpen: false
+        listOpen: false,
+        logged_in: localStorage.getItem('token') ? true : false,
+        redirect: localStorage.getItem('token') ? true : false,
+    };
+
+    handle_logout = (data) => {
+        localStorage.removeItem('token');
+        this.setState({ redirect: false });
+    };
+
+    redirectToLogin = () => {
+        const { redirect } = this.state;
+    
+        if (!redirect) {
+            return <Redirect to='/login'/>;
+        }
+
+        return null;
+    }
+
+    renderMenuAccount(){
+        const { logged_in } = this.state;
+
+        if (logged_in) {
+            return (
+                <div>
+                    <div className="pro-head">
+                        <img src={Avatar1} className="img-radius" alt="User Profile"/>
+                        <span>John Doe</span>
+                        <a href={DEMO.BLANK_LINK} className="dud-logout" title="Logout" onClick={e => this.handle_logout(this.state)}>
+                            <i className="feather icon-log-out"/>
+                            {this.redirectToLogin()}
+                        </a>
+                    </div>
+                    <ul className="pro-body">
+                        <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-settings"/> Settings</a></li>
+                        <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-user"/> Profile</a></li>
+                        <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-mail"/> My Messages</a></li>
+                        <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-lock"/> Lock Screen</a></li>
+                    </ul>
+                </div>
+            )
+        }else{
+            return (
+                <div>
+                    <ul className="pro-body" key='2'>
+                        <li>
+                            <a className="dropdown-item" href="/login" key='3'> 
+                            <i className="feather icon-settings"/> Login</a>
+                        </li>
+                    </ul>
+                </div>
+            )
+        }
     };
 
     render() {
-
         return (
             <Aux>
                 <ul className="navbar-nav ml-auto">
@@ -85,19 +140,7 @@ class NavRight extends Component {
                                 <i className="icon feather icon-settings"/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu alignRight className="profile-notification">
-                                <div className="pro-head">
-                                    <img src={Avatar1} className="img-radius" alt="User Profile"/>
-                                    <span>John Doe</span>
-                                    <a href={DEMO.BLANK_LINK} className="dud-logout" title="Logout">
-                                        <i className="feather icon-log-out"/>
-                                    </a>
-                                </div>
-                                <ul className="pro-body">
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-settings"/> Settings</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-user"/> Profile</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-mail"/> My Messages</a></li>
-                                    <li><a href={DEMO.BLANK_LINK} className="dropdown-item"><i className="feather icon-lock"/> Lock Screen</a></li>
-                                </ul>
+                                {this.renderMenuAccount()}
                             </Dropdown.Menu>
                         </Dropdown>
                     </li>
