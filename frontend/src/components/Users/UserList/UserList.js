@@ -1,22 +1,44 @@
 import React from 'react';
 import {Row, Col, Card, Table} from 'react-bootstrap';
+<<<<<<< HEAD
 import { FaEdit, FaTrashAlt, FaRegEye } from 'react-icons/fa';
+=======
+import { API_URL } from '../../../store/constant';
+>>>>>>> 3e51408d2a9b62a1cb04adaf6e44656b31d1bd1f
 
 import Aux from "../../../hoc/_Aux";
 import  UsersConnection  from  '../Users';
 
+<<<<<<< HEAD
 //const API_URL = 'http://uno.localhost:8000/users/api/users';
+=======
+let PATH = 'users/api/users';
+
+>>>>>>> 3e51408d2a9b62a1cb04adaf6e44656b31d1bd1f
 
 const  usersconnection  =  new  UsersConnection();
 
  
 class UsersTable extends React.Component {
 
+<<<<<<< HEAD
     constructor(props) {
         super(props);
         this.state  = {
             users: []
         };
+=======
+    UNSAFE_componentWillMount(){
+        const init ={
+            method:'GET',
+        }
+        fetch(API_URL + PATH, init).then(r=>{
+            return r.json()
+        }).then(data=>{
+            this.setState({users:data})
+        })
+    }
+>>>>>>> 3e51408d2a9b62a1cb04adaf6e44656b31d1bd1f
 
         //Get users for list
         usersconnection.getUsers().then(

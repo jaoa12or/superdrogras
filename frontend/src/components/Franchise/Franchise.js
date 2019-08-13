@@ -1,30 +1,61 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000/franchise/';
+import { API_URL } from '../../store/constant';
 
-export default class Franchise{
+let PATH = 'franchise/api/';
+
+export default class Franchise {
 
     getFranchises() {
-        const url = `${API_URL}api/`;
-        return axios.get(url).then(response => response.data);
-    }  
-    getFranchiseByURL(link){
-        const url = `${API_URL}${link}`;
-        return axios.get(url).then(response => response.data);
+        const url = `${API_URL + PATH}`;
+        return axios.get(url)
+        .then(response => {
+            // returning the data here allows the caller to get it through another .then(...)
+            return response.data;
+        })
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });
+
+    }
+    getFranchiseByURL(link) {
+        const url = `${API_URL + PATH}${link}`;
+        return axios.get(url).then(response => response.data)
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });
     }
     getFranchise(pk) {
-        const url = `${API_URL}api/${pk}`;
-        return axios.get(url).then(response => response.data);
+        const url = `${API_URL + PATH}${pk}`;
+        return axios.get(url).then(response => response.data)
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });
     }
-    deleteFranchise(franchise){
-        const url = `${API_URL}api/${franchise.pk}`;
-        return axios.delete(url);
+    deleteFranchise(franchise) {
+        const url = `${API_URL + PATH}${franchise.pk}`;
+        return axios.delete(url)
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });
     }
-    createFranchise(franchise){
-        const url = `${API_URL}api/`;
-        return axios.post(url,franchise);
+    createFranchise(franchise) {
+        const url = `${API_URL + PATH}`;
+        return axios.post(url, franchise)
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });;
     }
-    updateFranchise(franchise){
-        const url = `${API_URL}api/${franchise.pk}/`;
-        return axios.put(url,franchise);
+    updateFranchise(franchise) {
+        const url = `${API_URL + PATH}${franchise.pk}/`;
+        return axios.put(url, franchise)
+        .catch(function (error) {
+            // handle error
+            window.location.href = "/";
+        });;
     }
 }
