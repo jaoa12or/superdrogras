@@ -33,6 +33,13 @@ const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFran
 const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
 const CreateUser = React.lazy(() => import('./components/Users/CreateUser/CreateUser'));
 
+// shop
+const ProductList =  React.lazy(() => import('./components/Shop/ProductList/ProductList'));
+const ProductDetail =  React.lazy(() => import('./components/Shop/ProductDetail/ProductDetail'));
+
+// Cart
+const CartList =  React.lazy(() => import('./components/Cart/CartList/CartList'));
+
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
     { path: '/basic/button', exact: true, name: 'Basic Button', component: UIBasicButton },
@@ -55,6 +62,12 @@ const routes = [
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
     { path: '/franchise/list', exact: true, name: 'List Franchises', component: ListFranchises },
+    // shop
+    { path: '/shop', exact: true, name: 'Shop Product List', component: ProductList },
+    //{ path: '/shop/:category_slug', exact: true, name: 'Shop Product List By Category', component: ProductList },
+    { path: '/shop/:pk/:product_slug', exact: true, name: 'Product Detail', component: ProductDetail },
+    // Cart
+    { path: '/cart', exact: true, name: 'Shopping Cart', component: CartList },
 ];
 
 export default routes;
