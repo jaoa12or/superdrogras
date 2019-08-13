@@ -1,6 +1,4 @@
 import React from 'react';
-import {Row, Col, Card, Button,Pagination} from 'react-bootstrap';
-import { Link } from  'react-router-dom'
 import Aux from "../../../hoc/_Aux";
 import  Cart  from  '../Cart';
 import './CartList.css';
