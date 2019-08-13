@@ -1,28 +1,46 @@
 import React from 'react';
 import {Row, Col, Card, Table} from 'react-bootstrap';
-import { API_URL } from '../../../store/constant';
+
+import { FaEdit, FaRegEye, FaTrashAlt } from 'react-icons/fa';
 
 import Aux from "../../../hoc/_Aux";
 
-let PATH = 'users/api/users';
+import  UsersConnection  from  '../Users';
 
+const  usersconnection  =  new  UsersConnection();
 
+ 
 class UsersTable extends React.Component {
 
-    UNSAFE_componentWillMount(){
-        const init ={
-            method:'GET',
-        }
-        fetch(API_URL + PATH, init).then(r=>{
-            return r.json()
-        }).then(data=>{
-            this.setState({users:data})
-        })
+    constructor(props) {
+        super(props);
+        this.state  = {
+            users: []
+        };
+
+        //Get users for list
+        usersconnection.getUsers().then(
+            data => { 
+                this.setState({users:data.results})
+            }
+        )
     }
 
-    state = {
-        users: []
-    }
+    handleDelete(e, pk){
+        e.preventDefault();
+        usersconnection.deleteUser(pk).then(
+            data => { 
+                var  newArr  =  this.state.users.filter(function(obj) {
+                    return  obj.id  !==  pk;
+                });
+
+                this.setState(prevstate => {
+                    const newState = { ...prevstate };
+                    newState['users'] = newArr;
+                    return newState;
+                });
+            });
+    };
 
     render() {
         return (
@@ -31,16 +49,17 @@ class UsersTable extends React.Component {
                     <Col>
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h5">Striped Table</Card.Title>
-                                <span className="d-block m-t-5">use props <code>striped</code> with <code>Table</code> component</span>
+                                <Card.Title as="h5">Usuarios</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Table striped responsive>
                                     <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
                                         <th>Username</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Correo</th>
+                                        <th>Opciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,6 +69,12 @@ class UsersTable extends React.Component {
                                                 <td>{user.username}</td>
                                                 <td>{user.first_name}</td>
                                                 <td>{user.last_name}</td>
+                                                <td>{user.email}</td>
+                                                <td>
+                                                    <a href={"/datta-able/react/default/users/edit/" + user.id} className="text-warning"><FaEdit /></a> | 
+                                                    <a href='/' className="text-success"><FaRegEye /></a> | 
+                                                    <a href='/' onClick={e => this.handleDelete(e, user.id)} className="text-danger"><FaTrashAlt /></a>
+                                                </td>
                                             </tr>
                                         )
                                     })}
