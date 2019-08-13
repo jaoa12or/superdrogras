@@ -46,22 +46,35 @@ class ListItems extends React.Component {
                                     <thead>
                                     <tr>
                                         
-                                        <th>Item</th>
-                                        <th>Cantidad Existente</th>
-                                        <th>Cantidad Comprometida</th>
-                                        <th>Fecha Ultima Entrada</th>
-                                        <th>Fecha Ultima Salida</th>
+                                        <th>Categoria</th>
+                                        <th>ID producto</th>
+                                        <th>Laboratorio</th>
+                                        <th>Presentación</th>
+                                        <th>Nombre Medico</th>
+                                        <th>Contenido</th>
+                                        <th>Unidad Medida</th>
+                                        <th>Descripción</th>
+                                        <th>Referencia</th>
+                                        <th>Proveedor</th>
+                                        <th>Precio</th>
+                                        <th>Proveedor</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         {this.state.items.map( item  =>
                                             <tr key={item.id}>
                                                 
-                                                <td>{item.item}</td>
-                                                <td>{item.existing_quantity}</td>
-                                                <td>{item.committed_quantity}</td>
-                                                <td>{item.last_entry_date}</td>
-                                                <td>{item.last_output_date}</td>
+                                                <td>{item.category}</td>
+                                                <td>{item.id_product}</td>
+                                                <td>{item.laboratory}</td>
+                                                <td>{item.presentation}</td>
+                                                <td>{item.medical_name}</td>
+                                                <td>{item.quantity}</td>
+                                                <td>{item.measure_unity}</td>
+                                                <td>{item.description}</td>
+                                                <td>{item.reference}</td>
+                                                <td>{item.supplier}</td>
+                                                <td>{item.price}</td>
                                                 <td>
                                                 <Link to={"api/item/" + item.id}>
                                                 <Button variant="secondary">
