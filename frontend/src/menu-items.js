@@ -62,6 +62,46 @@ export default {
                         },
                         
                     ]
+                },{
+                    id: 'item',
+                    title: 'Items',
+                    type: 'collapse',
+                    icon: 'feather icon-lock',
+                    children: [
+                        {
+                            id: 'items-list',
+                            title: 'Listar Items',
+                            type: 'item',
+                            url: '/item/list'
+                        },
+                        {
+                            id: 'roles-create',
+                            title: 'Crear Item',
+                            type: 'item',
+                            url: '/item/create'
+                        },
+                        
+                    ]
+                },{
+                    id: 'inventory',
+                    title: 'Inventario',
+                    type: 'collapse',
+                    icon: 'feather icon-lock',
+                    children: [
+                        {
+                            id: 'inventory-list',
+                            title: 'Inventario',
+                            type: 'item',
+                            url: '/inventory/list'
+                        },
+                        {
+                            id: 'inventory-create',
+                            title: 'Crear Entrada',
+                            type: 'item',
+                            url: '/inventory/create'
+                        },
+                        
+                    ]
                 }
 
             ]

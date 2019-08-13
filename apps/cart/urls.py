@@ -11,5 +11,7 @@ urlpatterns = [
     path('remove/<int:product_id>/',
          views.cart_remove,
          name='cart_remove'),
-    path('api/cart-list', views.CartList.as_view(), name='api_cart_list'),
+    path('api/cart-list', views.CartAPI.as_view(), name='api_cart_list'),
+    path('api/add-product-to-cart', views.CartAPI.as_view(), name='api_cart_add_product'),
+    path('api/remove-product-of-cart', views.CartAPI.as_view(), name='api_cart_remove_product'),
 ]

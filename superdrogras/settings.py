@@ -176,7 +176,6 @@ REST_FRAMEWORK  = {
         ' rest_framework.authentication.SessionAuthentication ' ,
         ' rest_framework.authentication.BasicAuthentication ' ,
     ),
-    'DEFAULT_PAGINATION_CLASS': 'apps.core.pagination.StandardResultsSetPagination'
 }
 
 JWT_AUTH = {
@@ -184,12 +183,12 @@ JWT_AUTH = {
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:3000',
-#     'http://uno.localhost:3000',
-#     'http://tres.localhost:3000',
-#  )
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+     'http://localhost:3000',
+     'http://tovar.localhost:3000',
+)
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.utils.my_jwt_response_handler'
