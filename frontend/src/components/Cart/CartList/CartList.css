@@ -63,3 +63,8 @@
 .shopping-cart {
     margin-top: 20px;
 }
+
+.img-size {
+    max-width: 125px;
+    max-height: 125px;
+}
