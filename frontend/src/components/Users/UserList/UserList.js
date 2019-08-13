@@ -71,7 +71,7 @@ class UsersTable extends React.Component {
                                                 <td>{user.last_name}</td>
                                                 <td>{user.email}</td>
                                                 <td>
-                                                    <a href={"/datta-able/react/default/users/edit/" + user.id} className="text-warning"><FaEdit /></a> | 
+                                                    <a href={"/users/edit/" + user.id} className="text-warning"><FaEdit /></a> | 
                                                     <a href='/' className="text-success"><FaRegEye /></a> | 
                                                     <a href='/' onClick={e => this.handleDelete(e, user.id)} className="text-danger"><FaTrashAlt /></a>
                                                 </td>
