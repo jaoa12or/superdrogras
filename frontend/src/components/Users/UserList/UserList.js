@@ -24,6 +24,17 @@ class UsersTable extends React.Component {
                 this.setState({users:data.results})
             }
         )
+
+        // fetch('http://uno.localhost:8000/users/current_user/', {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: `JWT ${localStorage.getItem('token')}/`
+        //     }
+        // })
+        // .then(res => res.json())
+        // .then(json => {
+        //     console.log(json);
+        // });
     }
 
     handleDelete(e, pk){

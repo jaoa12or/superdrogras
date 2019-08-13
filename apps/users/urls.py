@@ -14,5 +14,6 @@ urlpatterns = [
 	path('login/', LoginView.as_view(template_name='login_form.html'), name='login'),
 	path("logout/", LogoutView.as_view(template_name='users.html'), name='logout'),
 	path('api/', include('apps.users.api.urls')),
-	path('token-auth/', obtain_jwt_token)
+	path('token-auth/', obtain_jwt_token),
+	path('current_user/', current_user),
 ]

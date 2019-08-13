@@ -62,6 +62,18 @@ class User{
         const r = await fetch(url, init);
         return r;
     }
+
+    currentUser = async () => {
+        const url = `${API_URL}users/current_user/`;
+        const init = {
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('token')}`
+            },
+        }
+        const r = await fetch(url, init);
+        return r;
+    }
+    
     
 }
 

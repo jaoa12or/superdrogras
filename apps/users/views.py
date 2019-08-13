@@ -11,6 +11,7 @@ from rest_framework import viewsets
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from apps.franchise.compat import get_public_schema_name, get_tenant_model
+from rest_framework.response import Response
 
 class UserListView(ListView):
     model = User
@@ -72,6 +73,8 @@ class UserView(viewsets.ModelViewSet):
         return Response()
 		
 def current_user(request):
+    print(request.user)
     serializer = UserSerializer(request.user)
+    print(serializer.data)
     return Response(serializer.data)
-
+    #return HttpResponse(serializer.data)
