@@ -183,12 +183,12 @@ JWT_AUTH = {
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:3000',
-#     'http://uno.localhost:3000',
-#     'http://tres.localhost:3000',
-#  )
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+     'http://localhost:3000',
+     'http://tovar.localhost:3000',
+)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

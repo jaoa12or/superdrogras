@@ -26,8 +26,9 @@ class ProductDetail extends React.Component {
     }
 
     addProductToCartClick(product){
+        var  self  =  this;
         cart.addProductToCart(product).then(function (result) {
-            console.log(result);
+            self.props.history.push(`/cart`);
         });
     }
 

@@ -52,10 +52,17 @@ class CartAPI(APIView):
     def post(self, request, format=None):
         product_dict = request.data
         product = get_object_or_404(Product, id=product_dict['pk'])
-        print(request.session)
         cart = Cart(request)
         cart.add(product=product,
                  quantity=1,
                  update_quantity=1)
         return Response({"success": True})
 
+    def delete(self, request, format=None):
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        pk_product = body['product']['pk']
+        product = get_object_or_404(Product, id=pk_product)
+        cart = Cart(request)
+        cart.remove(product)
+        return Response({"success": True})

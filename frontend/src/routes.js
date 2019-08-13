@@ -29,8 +29,17 @@ const OtherDocs = React.lazy(() => import('./Demo/Other/Docs'));
 const CreateFranchise =  React.lazy(() => import('./components/Franchise/CreateFranchise/CreateFranchise'));
 const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFranchises/ListFranchises'));
 
+// inventory
+const CreateInventory =  React.lazy(() => import('./components/Inventory/CreateInventory/CreateInventory'));
+const ListInventory =  React.lazy(() => import('./components/Inventory/ListInventory/ListInventory'));
+
+// item
+const CreateItem =  React.lazy(() => import('./components/Item/CreateItem/CreateItem'));
+const ListItem =  React.lazy(() => import('./components/Item/ListItem/ListItem'));
+
 //Rutas para usuarios
 const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
+const CreateUser = React.lazy(() => import('./components/Users/CreateUser/CreateUser'));
 
 // shop
 const ProductList =  React.lazy(() => import('./components/Shop/ProductList/ProductList'));
@@ -53,7 +62,10 @@ const routes = [
     { path: '/maps/google-map', exact: true, name: 'Google Map', component: GoogleMap },
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
+    // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
+    { path: '/users/create', exact: true, name: 'CreateUser', component: CreateUser },
+    { path: '/users/edit/:pk', exact: true, name: 'CreateUser', component: CreateUser },
     // franchise
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
@@ -64,6 +76,15 @@ const routes = [
     { path: '/shop/:pk/:product_slug', exact: true, name: 'Product Detail', component: ProductDetail },
     // Cart
     { path: '/cart', exact: true, name: 'Shopping Cart', component: CartList },
+    // item
+    { path: '/item/create', exact: true, name: 'New Item', component: CreateItem },
+    { path: '/item/update/:pk', exact: true, name: 'Update Item', component: CreateItem },
+    { path: '/item/list', exact: true, name: 'List Item', component: ListItem },
+    // inventory
+    { path: '/inventory/create', exact: true, name: 'New Inventory', component: CreateInventory },
+    { path: '/inventory/update/:pk', exact: true, name: 'Update Inventory', component: CreateInventory },
+    { path: '/inventory/list', exact: true, name: 'List Inventory', component: ListInventory }
+
 ];
 
 export default routes;

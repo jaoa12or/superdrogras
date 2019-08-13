@@ -17,4 +17,8 @@ export default class Shop{
         const url = `${API_URL}${PATH}add-product-to-cart`;
         return axios.post(url, product).then(response => response.data);
     }
+    removeProductofCart(product) {
+        const url = `${API_URL}${PATH}remove-product-of-cart`;
+        return axios.delete(url, { data: { product: product} }).then(response => response.data);
+    }
 }
