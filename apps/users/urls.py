@@ -8,9 +8,9 @@ from rest_framework_jwt.views import obtain_jwt_token
 app_name = 'users'
 urlpatterns = [
 	path('', UserListView.as_view(), name='users'),
-	# path('create/', create, name='create'),
-	# path('edit/<int:pk>', edit, name='edit'),
-	# path('delete/<int:pk>', UserDeleteView.as_view(), name='delete'),
+	path('create/', create, name='create'),
+	path('edit/<int:pk>', edit, name='edit'),
+	path('delete/<int:pk>', UserDeleteView.as_view(), name='delete'),
 	path('login/', LoginView.as_view(template_name='login_form.html'), name='login'),
 	path("logout/", LogoutView.as_view(template_name='users.html'), name='logout'),
 	path('api/', include('apps.users.api.urls')),

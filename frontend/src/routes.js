@@ -50,6 +50,7 @@ const routes = [
     // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
     { path: '/users/create', exact: true, name: 'CreateUser', component: CreateUser },
+    { path: '/users/edit/:pk', exact: true, name: 'CreateUser', component: CreateUser },
     // franchise
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },

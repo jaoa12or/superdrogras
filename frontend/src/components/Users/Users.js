@@ -1,27 +1,32 @@
-const API_URL = 'http://uno.localhost:8000/users/api/';
+import { API_URL } from '../../store/constant';
+
+let PATH = 'users/api/';
 
 class User{
 
     getUsers = async () => {
+        const url = `${API_URL + PATH}`;
         const init ={
             method:'GET',
         }
-        const r = await fetch(API_URL, init);
+        const r = await fetch(url, init);
         return r.json();
     }
 
-    createUser = async () => {
+    getUser = async (pk) => {
+        const url = `${API_URL + PATH}${pk}`;
         const init = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        const r = await fetch('http://uno.localhost:8000/users/api/create/', init);
+        const r = await fetch(url, init);
         return r.json();
     }
 
     storeUser = async (data) => {
+        const url = `${API_URL + PATH}`;
         const init = {
             method: 'POST',
             headers: {
@@ -29,8 +34,33 @@ class User{
             },
             body: JSON.stringify(data)
         }
-        const r = await fetch('http://uno.localhost:8000/users/api/users/create/', init);
+        const r = await fetch(url, init);
         return r.json();
+    }
+
+    updateUser = async (pk, data) => {
+        const url = `${API_URL + PATH}${pk}/`;
+        const init = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        const r = await fetch(url, init);
+        return r.json();
+    }
+
+    deleteUser = async (pk) => {
+        const url = `${API_URL + PATH}${pk}/`;
+        const init = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+        const r = await fetch(url, init);
+        return r;
     }
     
 }

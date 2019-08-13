@@ -1,21 +1,16 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework import viewsets 
 from apps.users.models import User
 from .serializers import UserSerializer
+from django.http import HttpResponse
 
-class UserListView(ListAPIView):
-    queryset = User.objects.all()
+
+
+class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-
-class UserDetailView(RetrieveAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class UserCreateView(CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    def post(self, request):
-        return Response()
-        
-    def post(self, request):
-        return Response()
-
+    
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
