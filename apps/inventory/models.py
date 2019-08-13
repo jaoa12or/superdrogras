@@ -1,6 +1,6 @@
 from django.db import models
 from apps.franchise.models import BaseModel
-from apps.items.models import Product
+#from apps.items.models import Product
 from django.utils.timezone import now
 
 class Inventory(BaseModel):
