@@ -29,6 +29,14 @@ const OtherDocs = React.lazy(() => import('./Demo/Other/Docs'));
 const CreateFranchise =  React.lazy(() => import('./components/Franchise/CreateFranchise/CreateFranchise'));
 const ListFranchises =  React.lazy(() => import('./components/Franchise/ListFranchises/ListFranchises'));
 
+// inventory
+const CreateInventory =  React.lazy(() => import('./components/Inventory/CreateInventory/CreateInventory'));
+const ListInventory =  React.lazy(() => import('./components/Inventory/ListInventory/ListInventory'));
+
+// item
+const CreateItem =  React.lazy(() => import('./components/Item/CreateItem/CreateItem'));
+const ListItem =  React.lazy(() => import('./components/Item/ListItem/ListItem'));
+
 //Rutas para usuarios
 const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
 
@@ -64,6 +72,15 @@ const routes = [
     { path: '/shop/:pk/:product_slug', exact: true, name: 'Product Detail', component: ProductDetail },
     // Cart
     { path: '/cart', exact: true, name: 'Shopping Cart', component: CartList },
+    // item
+    { path: '/item/create', exact: true, name: 'New Item', component: CreateItem },
+    { path: '/item/update/:pk', exact: true, name: 'Update Item', component: CreateItem },
+    { path: '/item/list', exact: true, name: 'List Item', component: ListItem },
+    // inventory
+    { path: '/inventory/create', exact: true, name: 'New Inventory', component: CreateInventory },
+    { path: '/inventory/update/:pk', exact: true, name: 'Update Inventory', component: CreateInventory },
+    { path: '/inventory/list', exact: true, name: 'List Inventory', component: ListInventory }
+
 ];
 
 export default routes;
