@@ -24,7 +24,7 @@ export default {
             children: [
                 {
                     id: 'users-items',
-                    title: 'Usuiarios',
+                    title: 'Usuarios',
                     type: 'collapse',
                     icon: 'feather icon-user',
                     children: [
@@ -99,6 +99,47 @@ export default {
                             title: 'Crear Entrada',
                             type: 'item',
                             url: '/inventory/create'
+                        },
+                        
+                    ]
+                },{
+                    id: 'shop',
+                    title: 'Tienda',
+                    type: 'collapse',
+                    icon: 'feather icon-lock',
+                    children: [
+                        {
+                            id: 'shop-list',
+                            title: 'Tienda',
+                            type: 'item',
+                            url: '/shop/'
+                        },
+                        {
+                            id: 'cart-shop',
+                            title: 'Ir al Carrito',
+                            type: 'item',
+                            url: '/cart'
+                        },
+                        
+                    ]
+                },
+                {
+                    id: 'franchise',
+                    title: 'Franquicias',
+                    type: 'collapse',
+                    icon: 'feather icon-lock',
+                    children: [
+                        {
+                            id: 'franchise-list',
+                            title: 'Listar Franquicias',
+                            type: 'item',
+                            url: '/franchise/list'
+                        },
+                        {
+                            id: 'franchise-create',
+                            title: 'Crear Franquicias',
+                            type: 'item',
+                            url: '/franchise/create'
                         },
                         
                     ]

@@ -55,7 +55,7 @@ class ListFranchises extends React.Component {
     }
     render() {
         let items = [];
-        for (let number = 1; number <= (this.state.numPages + 1); number++) {
+        for (let number = 1; number <= 2; number++) {
             items.push(
                 <Pagination.Item key={number}>
                     {number}

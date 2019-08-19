@@ -12,13 +12,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-from json import loads
-json_file = open('superdrogras/secrets.json').read()
-JSON_CONFIG_FILE = loads(json_file)
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+from json import loads
+json_file = open(os.path.join(BASE_DIR, 'secrets.json')).read()
+JSON_CONFIG_FILE = loads(json_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -29,7 +28,7 @@ SECRET_KEY = 'sx#8cu6@%&%6uj^%3pv)^-+m1ax!ule%ca$ew*ggf9bk5d81(^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost', '.127.0.0.1']
+ALLOWED_HOSTS = ['.localhost', '.127.0.0.1','.54.200.51.104','.superdrogras.tk']
 
 
 # Application definition
@@ -183,12 +182,16 @@ JWT_AUTH = {
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-     'http://localhost:3000',
-     'http://tovar.localhost:3000',
-)
+# CORS_ORIGIN_WHITELIST = (
+#      'http://localhost:3000',
+#      'http://tovar.localhost:3000',
+#      'http://prueba.localhost:3000',
+#      'http://larebaja.localhost:3000',
+#      'http://prueba2.localhost:3000',
+
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
