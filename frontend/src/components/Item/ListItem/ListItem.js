@@ -31,7 +31,6 @@ class ListItems extends React.Component {
     }
 
     render() {
-        let items = [];
         return (
             <Aux>
                 <Row>

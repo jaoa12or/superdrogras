@@ -36,6 +36,7 @@ SHARED_APPS = [
     'apps.users',
     'django_tenants',
     'apps.franchise',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -178,7 +179,7 @@ REST_FRAMEWORK  = {
 }
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.api.utils.my_jwt_response_handler'
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
@@ -190,7 +191,6 @@ CORS_ALLOW_CREDENTIALS = True
 #      'http://prueba.localhost:3000',
 #      'http://larebaja.localhost:3000',
 #      'http://prueba2.localhost:3000',
-
 # )
 
 MEDIA_URL = '/media/'
