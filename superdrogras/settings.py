@@ -37,6 +37,7 @@ SHARED_APPS = [
     'apps.users',
     'django_tenants',
     'apps.franchise',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -179,20 +180,16 @@ REST_FRAMEWORK  = {
 }
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.api.utils.my_jwt_response_handler'
 }
 
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-     'http://localhost:3000',
-     'http://tovar.localhost:3000',
-)
-
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.utils.my_jwt_response_handler'
-}
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',
+#     # 'http://tovar.localhost:3000',
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

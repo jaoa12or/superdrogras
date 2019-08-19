@@ -21,6 +21,7 @@ class NavRight extends Component {
 
     handle_logout = (data) => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         this.setState({ redirect: false });
     };
 

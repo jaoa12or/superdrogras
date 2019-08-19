@@ -76,7 +76,7 @@ class CartList extends React.Component {
                          )}
                         
                         <div className="pull-right">
-                            <a href="" className="btn btn-outline-secondary pull-right">
+                            <a href='/' className="btn btn-outline-secondary pull-right">
                                 Actualizar carrito de compras
                             </a>
                         </div>
@@ -87,7 +87,7 @@ class CartList extends React.Component {
 
                     <div className="card-footer">
                         <div className="pull-right">
-                            <a href="" className="btn btn-success pull-right">Proceder al Pago</a>
+                            <a href='/' className="btn btn-success pull-right">Proceder al Pago</a>
                             <div className="pull-right m-2">
                                 Precio total: <b>${this.state.total_price}</b>
                             </div>

@@ -2,10 +2,10 @@
 export default {
     items: [
         {
-            id: 'navigation',
-            //title: 'Navigation',
+            id: 'ui-element-1',
+            title: 'Menu',
             type: 'group',
-            icon: 'icon-navigation',
+            icon: 'icon-ui',
             children: [
                 {
                     id: 'dashboard',
@@ -13,20 +13,39 @@ export default {
                     type: 'item',
                     url: '/',
                     icon: 'feather icon-home',
-                }
-            ]
-        },
-        {
-            id: 'ui-element-1',
-            title: 'Opciones',
-            type: 'group',
-            icon: 'icon-ui',
-            children: [
+                },
                 {
+                    id: 'profile',
+                    title: 'Perfil',
+                    type: 'item',
+                    url: '/account/profile',
+                    icon: 'feather icon-user',
+                },
+                {
+                    id: 'roles-items',
+                    title: 'Roles',
+                    type: 'collapse',
+                    icon: 'feather icon-user-check',
+                    children: [
+                        {
+                            id: 'roles-list',
+                            title: 'Listar Roles',
+                            type: 'item',
+                            url: '/roles'
+                        },
+                        {
+                            id: 'roles-create',
+                            title: 'Crear Rol',
+                            type: 'item',
+                            url: '/roles/create'
+                        },
+                        
+                    ]
+                },{
                     id: 'users-items',
                     title: 'Usuiarios',
                     type: 'collapse',
-                    icon: 'feather icon-user',
+                    icon: 'feather icon-users',
                     children: [
                         {
                             id: 'users-list',
@@ -39,26 +58,6 @@ export default {
                             title: 'Crear Usuario',
                             type: 'item',
                             url: '/users/create'
-                        },
-                        
-                    ]
-                },{
-                    id: 'roles-items',
-                    title: 'Roles',
-                    type: 'collapse',
-                    icon: 'feather icon-lock',
-                    children: [
-                        {
-                            id: 'roles-list',
-                            title: 'Listar Usuarios',
-                            type: 'item',
-                            url: '/roles'
-                        },
-                        {
-                            id: 'roles-create',
-                            title: 'Crear Usuario',
-                            type: 'item',
-                            url: '/roles/create'
                         },
                         
                     ]

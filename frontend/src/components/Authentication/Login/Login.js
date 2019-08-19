@@ -7,7 +7,7 @@ import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 
 import { API_URL } from '../../../store/constant';
 
-let PATH = 'users/token-auth/';
+let PATH = 'users/api/token-auth/';
 
 class Login extends React.Component {
 
@@ -38,6 +38,7 @@ class Login extends React.Component {
         }).then(res => res.json()).then(json => {
             if (typeof json.token !== 'undefined') {
                 localStorage.setItem('token', json.token);
+                localStorage.setItem('user', JSON.stringify(json.user));
                 this.setState({
                     logged_in: true,
                     displayed_form: '',

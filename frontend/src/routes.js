@@ -41,9 +41,19 @@ const ListInventory =  React.lazy(() => import('./components/Inventory/ListInven
 const CreateItem =  React.lazy(() => import('./components/Item/CreateItem/CreateItem'));
 const ListItem =  React.lazy(() => import('./components/Item/ListItem/ListItem'));
 
-//Rutas para usuarios
-const UserList = React.lazy(() => import('./components/Users/UserList/UserList'));
-const CreateUser = React.lazy(() => import('./components/Users/CreateUser/CreateUser'));
+//Users
+const UserList = React.lazy(() => import('./containers/Users/UserList'));
+const UserForm = React.lazy(() => import('./containers/Users/UserForm'));
+const UserDetail = React.lazy(() => import('./containers/Users/UserDetail'));
+
+//Account
+const ShowProfile = React.lazy(() => import('./containers/Account/ShowProfile'));
+const EditProfile = React.lazy(() => import('./containers/Account/EditProfile'));
+
+//Roles
+const RoleList = React.lazy(() => import('./containers/Roles/RoleList'));
+const RoleForm = React.lazy(() => import('./containers/Roles/RoleForm'));
+const RoleDetail = React.lazy(() => import('./containers/Roles/RoleDetail'));
 
 // shop
 const ProductList =  React.lazy(() => import('./components/Shop/ProductList/ProductList'));
@@ -70,8 +80,17 @@ const routes = [
     { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
     // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
-    { path: '/users/create', exact: true, name: 'CreateUser', component: CreateUser },
-    { path: '/users/edit/:pk', exact: true, name: 'CreateUser', component: CreateUser },
+    { path: '/users/create', exact: true, name: 'UserForm', component: UserForm },
+    { path: '/users/edit/:pk', exact: true, name: 'UserForm', component: UserForm },
+    { path: '/users/detail/:pk', exact: true, name: 'UserDetail', component: UserDetail },
+    //Account
+    { path: '/account/profile', exact: true, name: 'ShowProfile', component: ShowProfile },
+    { path: '/account/profile/edit', exact: true, name: 'EditProfile', component: EditProfile },
+    //Roles
+    { path: '/roles', exact: true, name: 'RoleList', component: RoleList },
+    { path: '/roles/create', exact: true, name: 'RoleForm', component: RoleForm },
+    { path: '/roles/edit/:pk', exact: true, name: 'RoleForm', component: RoleForm },
+    { path: '/roles/detail/:pk', exact: true, name: 'RoleDetail', component: RoleDetail },
     // franchise
     { path: '/franchise/create', exact: true, name: 'New Franchise', component: CreateFranchise },
     { path: '/franchise/update/:pk', exact: true, name: 'Update Franchise', component: CreateFranchise },
@@ -89,8 +108,7 @@ const routes = [
     // inventory
     { path: '/inventory/create', exact: true, name: 'New Inventory', component: CreateInventory },
     { path: '/inventory/update/:pk', exact: true, name: 'Update Inventory', component: CreateInventory },
-    { path: '/inventory/list', exact: true, name: 'List Inventory', component: ListInventory }
-
+    { path: '/inventory/list', exact: true, name: 'List Inventory', component: ListInventory },
 ];
 
 export default routes;
