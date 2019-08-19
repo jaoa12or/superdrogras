@@ -13,6 +13,14 @@ import Avatar3 from '../../../../../assets/images/user/avatar-3.jpg';
 
 class NavRight extends Component {
 
+    constructor(props) {
+        super(props);
+        if(!localStorage.getItem('token')){
+            window.location.href = "/login";
+        }
+        
+    }
+
     state = {
         listOpen: false,
         logged_in: localStorage.getItem('token') ? true : false,
