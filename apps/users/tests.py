@@ -17,5 +17,5 @@ class BaseSetup(TenantTestCase):
 
     #comentario 2 modificado
     def test_user_create_view(self):
-        response = self.c.get(reverse('users:create1'))
+        response = self.c.get(reverse('users:create'))
         self.assertEqual(response.status_code, 200)
