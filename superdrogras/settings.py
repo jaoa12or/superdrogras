@@ -28,7 +28,7 @@ SECRET_KEY = 'sx#8cu6@%&%6uj^%3pv)^-+m1ax!ule%ca$ew*ggf9bk5d81(^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost', '.127.0.0.1','.54.200.51.104','.superdrogras.tk']
+ALLOWED_HOSTS = ['.localhost', '.127.0.0.1','.54.200.51.104','.superdrogras.tk','.superdrogas.tk']
 
 
 # Application definition
