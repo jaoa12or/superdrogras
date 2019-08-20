@@ -12,7 +12,7 @@ class Breadcrumb extends Component {
         item: []
     };
 
-    componentDidMount() {
+    UNSAFE_componentDidMount() {
         (navigation.items).map((item, index) => {
             if (item.type && item.type === 'group') {
                 this.getCollapse(item, index);
@@ -21,7 +21,7 @@ class Breadcrumb extends Component {
         });
     };
 
-    componentWillReceiveProps = () => {
+    UNSAFE_componentWillReceiveProps = () => {
         (navigation.items).map((item, index) => {
             if (item.type && item.type === 'group') {
                 this.getCollapse(item);
@@ -48,7 +48,7 @@ class Breadcrumb extends Component {
     render() {
         let main, item;
         let breadcrumb = '';
-        let title = 'Welcome';
+        let title = 'Bienvenido';
         if (this.state.main && this.state.main.type === 'collapse') {
             main = (
                 <li className="breadcrumb-item">
@@ -90,7 +90,7 @@ class Breadcrumb extends Component {
 
         }
 
-        document.title = title + ' | Datta Able Free React + Redux Admin Template';
+        document.title = title + ' | Superdrogras';
 
         return (
             <Aux>
