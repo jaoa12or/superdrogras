@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 from json import loads
-json_file = open(os.path.join(BASE_DIR, 'secrets.json')).read()
+json_file = open(os.path.join(BASE_DIR, 'superdrogras/secrets.json')).read()
 JSON_CONFIG_FILE = loads(json_file)
 
 # Quick-start development settings - unsuitable for production
