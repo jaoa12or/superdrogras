@@ -32,7 +32,6 @@ class ListInventory extends React.Component {
 
     render() {
         console.log(typeof(this.state.inventories));
-        let items = [];
         return (
             <Aux>
                 <Row>

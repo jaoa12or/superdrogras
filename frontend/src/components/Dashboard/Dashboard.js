@@ -1,13 +1,11 @@
 import React from 'react';
-import {Row, Col, Card, Table} from 'react-bootstrap';
+import {Row, Col, Card} from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
 
 import LineChart from "../../Demo/Charts/Nvd3Chart/LineChart";
-import BarDiscreteChart from "../../Demo/Charts/Nvd3Chart/BarDiscreteChart";
 import MultiBarChart from "../../Demo/Charts/Nvd3Chart/MultiBarChart";
 import PieBasicChart from "../../Demo/Charts/Nvd3Chart/PieBasicChart";
-import PieDonutChart from "../../Demo/Charts/Nvd3Chart/PieDonutChart";
 
 class Dashboard extends React.Component {
     render() {

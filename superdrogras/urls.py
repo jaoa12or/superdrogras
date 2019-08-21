@@ -22,6 +22,6 @@ urlpatterns = [
     path('', home, name='home'),
     path('franchise/', include('apps.franchise.urls', namespace='franchise')),
     path('users/', include('apps.users.urls', namespace='users')),
-    path('users/api/', include('apps.users.api.urls')),
+    path('roles/', include('apps.roles.urls', namespace='users')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
