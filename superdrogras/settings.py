@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +29,7 @@ SECRET_KEY = 'sx#8cu6@%&%6uj^%3pv)^-+m1ax!ule%ca$ew*ggf9bk5d81(^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost', '.127.0.0.1','.54.200.51.104','.superdrogras.tk','.superdrogas.tk']
+ALLOWED_HOSTS = ['.localhost', '.127.0.0.1','.54.200.51.104','.superdrogras.tk','.superdrogas.tk','.test-cohett.tk']
 
 
 # Application definition
@@ -44,6 +45,7 @@ SHARED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'django_rest_passwordreset',
     'bootstrap4',
     'webpack_loader',
 ]
@@ -64,6 +66,7 @@ TENANT_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'django_rest_passwordreset',
     'bootstrap4',
 ]
 
@@ -72,6 +75,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 TENANT_MODEL = "franchise.Franchise" # Modelo que hereda de TenantMixin
 TENANT_DOMAIN_MODEL = "franchise.Domain"  # Modelo que hereda de DomainMixin
 AUTH_USER_MODEL = "users.User"
+# SOCIAL_AUTH_USER_MODEL = "users.User"
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL="/"
 MIDDLEWARE = [
@@ -179,8 +183,14 @@ REST_FRAMEWORK  = {
 }
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.api.utils.my_jwt_response_handler'
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'apps.users.api.utils.my_jwt_response_handler',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+    # 'JWT_EXPIRATION_DELTA': datetime.timedelta(days=100),
+    # 'JWT_VERIFY_EXPIRATION': False,
 }
+
+SOCIAL_AUTH_FACEBOOK_KEY = JSON_CONFIG_FILE['SOCIAL_AUTH_FACEBOOK_KEY']
+SOCIAL_AUTH_FACEBOOK_SECRET = JSON_CONFIG_FILE['SOCIAL_AUTH_FACEBOOK_SECRET']
 
 # we whitelist localhost:3000 because that's where frontend will be served
 CORS_ORIGIN_ALLOW_ALL = True
@@ -196,4 +206,5 @@ CORS_ALLOW_CREDENTIALS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
