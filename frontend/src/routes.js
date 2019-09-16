@@ -78,6 +78,7 @@ const routes = [
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
     //home
     { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
+    
     // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
     { path: '/users/create', exact: true, name: 'UserForm', component: UserForm },
