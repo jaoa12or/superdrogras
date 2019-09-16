@@ -63,6 +63,8 @@ class UserForm extends React.Component{
             //Actualizar user.groups en el state 
             this.setState(prevState => {
                 let user = Object.assign({}, prevState.user); 
+                user['password'] = "";//Limpiar el campo de contraseña
+                console.log(user);
                 user['groups'] = new_user_groups;                                      
                 return { user };                                 
             });
