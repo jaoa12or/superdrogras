@@ -52,6 +52,7 @@ class Login extends React.Component{
     }
 
     async responseGoogle(response){
+        console.log(response);
         //Se mete el token de acceso al local storage
         localStorage.setItem('google_token', response.Zi.access_token);
         //Se hace la validción correspondiente con el back

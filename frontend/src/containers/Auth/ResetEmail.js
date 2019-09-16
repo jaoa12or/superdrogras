@@ -45,7 +45,6 @@ class ResetEmail extends React.Component{
                 this.setState({waiting: false});
                 this.setState({errors: reset_password_email});
             }
-            
 		}catch(error){
 			this.setState({error: error.message});
 		}

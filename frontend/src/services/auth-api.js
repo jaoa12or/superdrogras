@@ -42,3 +42,8 @@ export function facebookToken(data){
 export function resetPassword(data){
     return request('POST', 'password_reset', data);
 }
+
+//Configurar nueva contraseña
+export function newPassword(data){
+    return request('POST', 'password_reset/confirm', data);
+}
