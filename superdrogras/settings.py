@@ -203,8 +203,15 @@ CORS_ALLOW_CREDENTIALS = True
 #      'http://prueba2.localhost:3000',
 # )
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = JSON_CONFIG_FILE['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = JSON_CONFIG_FILE['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = JSON_CONFIG_FILE['DEFAULT_FROM_EMAIL']
+# DEFAULT_TO_EMAIL = 'to email'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
