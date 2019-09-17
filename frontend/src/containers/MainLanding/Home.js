@@ -1,5 +1,7 @@
 import React from 'react';
+import { BrowserRouter, Route } from  'react-router-dom' 
 import Home from '../../components/MainLanding/Home';
+import FranchiseHome from '../../components/FranchiseLanding/FranchiseHome';
 
 class MainLandin extends React.Component{
 
@@ -13,10 +15,17 @@ class MainLandin extends React.Component{
         
     }
 
-
     render(){
         return (
-            <Home/>
+            // <Home/>
+            <BrowserRouter> 
+                <Route path="/" render={props => { 
+                    const subdomain = window.location.hostname.split('.'); 
+                    if (subdomain && subdomain.length > 1) 
+                        return <FranchiseHome {...props} subdomain={subdomain[0]}/>; 
+                        return <Home {...props}/>; }}/> 
+                    
+            </BrowserRouter>
         );
     }
 }
