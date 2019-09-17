@@ -16,14 +16,13 @@ export default class Franchise {
             // handle error
             window.location.href = "/";
         });
-
     }
     getFranchiseByURL(link) {
         const url = `${API_URL + PATH}${link}`;
         return axios.get(url).then(response => response.data)
         .catch(function (error) {
             // handle error
-            window.location.href = "/";
+           // window.location.href = "/";
         });
     }
     getFranchise(pk) {

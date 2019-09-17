@@ -7,6 +7,7 @@ from apps.items.api import router as router_item
 
 urlpatterns = [
     path('', home, name='home'),
+    path('franchise/', include('apps.franchise.urls', namespace='franchise')),
     path('users/', include('apps.users.urls', namespace='users')),
     path('roles/', include('apps.roles.urls', namespace='roles')),
     path('items/', include('apps.items.urls', namespace='items')),

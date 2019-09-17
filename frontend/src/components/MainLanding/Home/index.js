@@ -3,7 +3,7 @@ import React from 'react';
 // import Aux from "../../../hoc/_Aux";
 // import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 // import {NavLink} from 'react-router-dom';
-//import {Button} from 'react-bootstrap';
+//import {Button} from 'react-bootstrap';alignMainLandingHomePageItems
 import logo from '../../../assets/images/landing_logo.png';
 import { 
     Provider, 

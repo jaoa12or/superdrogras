@@ -4,7 +4,6 @@ import React from 'react';
 // import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 // import {NavLink} from 'react-router-dom';
 //import {Button} from 'react-bootstrap';
-import logo from '../../../assets/images/landing_logo.png';
 import { 
     Provider, 
     Heading, 
@@ -14,8 +13,6 @@ import {
     NavLink, 
     Small,
     Flex,
-    Button,
-    Link,
  } from 'rebass';
 import {
     Hero, 
@@ -23,31 +20,35 @@ import {
     ScrollDownIndicator,
     Section,
     PricingTier,
-    Phone,
     Feature,
 } from 'react-landing-page';
 
-function MainLandingHomePage(props){
+function FranchiseLandingHomePage(props){
     const {
         data
     } = props;
     
     return (
-        <Provider>
+        <Provider
+        theme={{
+            fonts: {
+              sans: '"Avenir Next", Helvetica, sans-serif',
+            },
+          }}>
             <Relative pb={5}>
                 <Absolute zIndex={1} left={0} right={0} top={0}>
                     <Flex is="header">
-                        <NavLink href="/">
+                        {/* <NavLink href="/">
                             <img src={logo}
                                 alt="logo"
                                 height="70"
                             />
-                        </NavLink>
+                        </NavLink> */}
+                        <Heading textAlign="left" style={{fontSize: '3rem', color: '#c3c3c3'}}>{props.franchise.map( fr  => fr.name.toUpperCase())} DROGUERÍA</Heading>
                         <NavLink variant="secondary" href="#home" ml='auto'>Home</NavLink>
-                        <NavLink variant="secondary" href="#price">Precios</NavLink>
-                        <NavLink variant="secondary" href="#services">Servicios</NavLink>
+                        <NavLink variant="secondary" href="#services">Productos</NavLink>
                         <NavLink variant="secondary" href="/login">Iniciar sesión</NavLink>
-                        <CallToAction bg="purple" mb={1} href="/register" style={{height:'48px', marginTop:'18px'}}>
+                        <CallToAction bg="gray" color='black' mb={1} href="/register" style={{height:'48px', marginTop:'18px'}}>
                             Registrarse
                         </CallToAction>
                     </Flex>
@@ -56,23 +57,24 @@ function MainLandingHomePage(props){
             <br/>
             <Hero
                 id="home"
-                bg="white"
-                backgroundImage="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2016/06/22110721/pastillas-remedios-medicamentos-1920.jpg"
+                bg="transparent"
+                backgroundImage="http://www.personeriamedellin.gov.co/images/institucional/obs-salud.jpg"
             >
-                <Flex flexWrap='wrap' alignItems='center'>
-                    <Flex alignItems='flex-start' width={[1, 1 / 2]} p={3}>
-                        <Phone src='https://www.65ymas.com/uploads/s1/48/63/4/bigstock-medicine-pharmaceutics-healt-216897016.jpeg'
-                            notch style={{transform: 'translate(32px, 64px)'}} />
+                <Flex flexWrap='wrap' alignItems='center' flexDirection='column'>
+                    {/* <Flex alignItems='flex-start' width={[1, 1 / 2]} p={3}>
+                        <Phone src='https://irp-cdn.multiscreensite.com/5ece1165/DESKTOP/jpg/649.jpg'
+                            notch style={{transform: 'translate(100px,80px)'}} />
                         <Phone src='https://www.databranding.net/hs-fs/hub/92588/file-31267202-jpg/images/estrategias_de_internet_para_tu_negocio.jpg' color='white'
                             style={{transform: 'translate(-32px, 0px)'}} />
-                    </Flex>
-                    <Flex width={[1, 1 / 2]} alignItems='center' flexDirection='column' p={3} >
-                        <Heading>Adquire tu franquicia</Heading>
-                        <Subhead fontSize={[2, 3]}>Te bridamos las herramientas para empezar</Subhead>
+                    </Flex> */}
+                    <Heading color="gray">Todo lo que necesitas en una Droguería</Heading>
+                        <Subhead fontSize={[2, 3]} color="gray">Conoce nuestros productos </Subhead>
                         <Flex mt={3} flexWrap='wrap' justifyContent='center'>
-                            <CallToAction bg="purple" mb={1} href="/register">Empezar Ahora</CallToAction>
+                            <CallToAction bg="gray" color='black' mb={1} href="#services">Ir a tienda</CallToAction>
                         </Flex>
-                    </Flex>
+                    {/* <Flex width={[1, 1 / 2]} alignItems='center' flexDirection='column' p={3} >
+                        
+                    </Flex> */}
                 </Flex>
                 <ScrollDownIndicator />
             </Hero>
@@ -81,11 +83,11 @@ function MainLandingHomePage(props){
                 <Section
                     width={[1, 1 / 2]}
                     bg='white'
-                    heading="Qué esperas?"
-                    subhead="Comienza tu negocio con nosotros">
-                    Busca un nombre apropiado para tu farmacia y empieza a vender
+                    heading="Has tus compras Online"
+                    subhead="Puedas hacer las compras desde la comodidad de tu casa">
+                    <CallToAction bg="gray" color='black' mb={1} href="#services">Ir a tienda</CallToAction>
                 </Section>
-                <Flex alignItems='flex-start' width={[1, 1 / 2]} p={3}>
+                <Flex alignItems='flex-start' width={[1 , 1 / 2]} p={3}>
                     <img
                         alt="market-online" 
                         src="http://mibeep.com/wp-content/uploads/2018/04/desarrollo-tienda-online-virtual.png"
@@ -93,7 +95,7 @@ function MainLandingHomePage(props){
                 </Flex>
             </Flex>
 
-            <Heading textAlign="center">Precios</Heading>
+            {/* <Heading textAlign="center">Precios</Heading>
             <Flex id="price">
                 <PricingTier bg="#ffbb00"
                     color="white"
@@ -133,33 +135,32 @@ function MainLandingHomePage(props){
                     ]}>
                     <CallToAction bg="white" color="#375e97" width={1} href="/register">Empezar ahora</CallToAction>
                 </PricingTier>
-            </Flex>
+            </Flex> */}
             <Heading textAlign="center">Servicios</Heading>
             <Flex flexWrap="wrap" justifyContent="center" id="services">
-                <Feature icon="📈" description="Panel de Administración con informes">
-                    Administración
+                <Feature icon="💊" description="Venta de Fármacos">
+                    Farmacología
                 </Feature>
-                <Feature icon="💳" 
-                    description="Landing page con carrito de ventas">
-                    Ventas en Línea
+                <Feature icon="💉" 
+                    description="Aplicación de inyecciones">
+                    Inyectología
                 </Feature>
-                <Feature icon="🎎" description="Registro para compras en línea">
-                    Clientes
+                <Feature icon="💄" description="Venta de Artículos de Belleza">
+                    Belleza
                 </Feature>
-                <Feature icon="🌡" description="Administración de Stock e Inventario">
-                    Productos
+                <Feature icon="🗒" description="Cuandernos, Lapiceros, etc...">
+                Papelería
                 </Feature>
-                <Feature icon="🗳" description="Facturación convencióna y electrónica">
-                    Facturación
+                <Feature icon="🖥" description="Venta de Productos Online">
+                    Tienda Online
                 </Feature>
             </Flex>
-            <Flex is="footer" alignItems="center" p={3}>
-                <NavLink children="Home" href="#home"/>
-                <NavLink children="Precios" href="#price"/>
+            <Flex is="footer" bg='black' alignItems="center" p={3}>
+                
                 <Small color="grey" ml="auto">© Superdrogas, 2018</Small>
             </Flex>
         </Provider>
     );
 }
 
-export default MainLandingHomePage;
+export default FranchiseLandingHomePage;
