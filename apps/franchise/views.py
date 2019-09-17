@@ -17,26 +17,36 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 @api_view(['GET', 'POST'])
 def franchise_list(request,format=None):
     if request.method == 'GET':
-        data = []
-        nextPage = 1
-        previousPage = 1
-        franchises = Franchise.objects.all()
-        page = request.GET.get('page', 1)
-        paginator = Paginator(franchises, 5)
-        try:
-            data = paginator.page(page)
-        except PageNotAnInteger:
-            data = paginator.page(1)
-        except EmptyPage:
-            data = paginator.page(paginator.num_pages)
-        
-        serializer = FranchiseSerializer(data,context={'request': request}, many=True)
-        if data.has_next():
-            nextPage = data.next_page_number()
-        if data.has_previous():
-            previousPage = data.previous_page_number()
+        if request.GET.get('subdomain',False):
+            data = []
+            try:
+                franchise = Franchise.objects.get(schema_name=request.GET.get('subdomain'))
+                data = [franchise]
+            except Franchise.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            serializer = FranchiseSerializer(data,context={'request': request}, many=True)
+            return Response({'data': serializer.data})
+        else:
+            data = []
+            nextPage = 1
+            previousPage = 1
+            franchises = Franchise.objects.all()
+            page = request.GET.get('page', 1)
+            paginator = Paginator(franchises, 5)
+            try:
+                data = paginator.page(page)
+            except PageNotAnInteger:
+                data = paginator.page(1)
+            except EmptyPage:
+                data = paginator.page(paginator.num_pages)
+            
+            serializer = FranchiseSerializer(data,context={'request': request}, many=True)
+            if data.has_next():
+                nextPage = data.next_page_number()
+            if data.has_previous():
+                previousPage = data.previous_page_number()
 
-        return Response({'data': serializer.data , 'count': paginator.count, 'numpages' : paginator.num_pages, 'nextlink': '/api/?page=' + str(nextPage), 'prevlink': '/api/?page=' + str(previousPage)})
+            return Response({'data': serializer.data , 'count': paginator.count, 'numpages' : paginator.num_pages, 'nextlink': '/api/?page=' + str(nextPage), 'prevlink': '/api/?page=' + str(previousPage)})
 
     elif request.method == 'POST':
         serializer = FranchiseSerializer(data=request.data)
