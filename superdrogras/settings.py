@@ -200,7 +200,7 @@ CORS_ALLOW_CREDENTIALS = True
 #      'http://tovar.localhost:3000',
 #      'http://prueba.localhost:3000',
 #      'http://larebaja.localhost:3000',
-#      'http://prueba2.localhost:3000',
+#      'http://vieja12.localhost:3000',
 # )
 
 EMAIL_USE_TLS = True

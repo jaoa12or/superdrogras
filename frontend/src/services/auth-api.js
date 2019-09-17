@@ -47,3 +47,8 @@ export function resetPassword(data){
 export function newPassword(data){
     return request('POST', 'password_reset/confirm', data);
 }
+
+//Crear una franquicia y luego un usuario
+export function createUserFranchise(data){
+    return request('POST', 'create_franchise_user', data);
+}

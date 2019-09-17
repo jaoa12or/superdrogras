@@ -77,7 +77,7 @@ const routes = [
     { path: '/sample-page', exact: true, name: 'Sample Page', component: OtherSamplePage },
     { path: '/docs', exact: true, name: 'Documentation', component: OtherDocs },
     //home
-    { path: '/', exact: true, name: 'Dashboard', component: Dashboard },
+    { path: '/dashboard', exact: true, name: 'Dashboard', component: Dashboard },
     
     // users
     { path: '/users', exact: true, name: 'UserList', component: UserList },
