@@ -125,7 +125,7 @@ DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
 
-DOMAIN = '.superdrogas.tk'
+DOMAIN = '.localhost'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
