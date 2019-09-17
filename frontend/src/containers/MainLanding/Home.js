@@ -6,7 +6,7 @@ import Franchise from '../../components/Franchise/Franchise';
 const franchise = new Franchise();
 const hostname = window.location.host;
 const domain = hostname.split('.');
-const subdomain = domain[0].split('.');
+const subdomain = domain[0];
 console.log(subdomain);
 console.log(domain);
 class MainLandin extends React.Component {
@@ -15,11 +15,11 @@ class MainLandin extends React.Component {
         super(props);
         this.state = {
             franchise: [],
-            route: '?subdomain=' + subdomain,
+            route: '?subdomain=' + subdomain[0],
             name: '',
         };
         var self = this;
-        if (subdomain && subdomain.length > 1)
+        if (domain && domain.length > 2)
             franchise.getFranchiseByURL(this.state.route).then((result) => {
                 console.log(result)
                 self.setState({ franchise: result.data, })
@@ -35,7 +35,7 @@ class MainLandin extends React.Component {
             // <Home/>
             <BrowserRouter>
                 <Route path="/" render={props => {
-                    if (subdomain && subdomain.length > 1)
+                    if (domain && domain.length > 2)
                         return <FranchiseHome {...props} franchise={this.state.franchise} />;
                     return <Home {...props} />;
                 }} />
