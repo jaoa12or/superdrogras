@@ -6,6 +6,8 @@ import Franchise from '../../components/Franchise/Franchise';
 const franchise = new Franchise();
 const hostname = window.location.host;
 const subdomain = hostname.split('.');
+console.log(subdomain);
+console.log(hostname);
 class MainLandin extends React.Component {
 
     constructor(props) {
