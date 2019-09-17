@@ -4,7 +4,7 @@ import Home from '../../components/MainLanding/Home';
 import FranchiseHome from '../../components/FranchiseLanding/FranchiseHome';
 import Franchise from '../../components/Franchise/Franchise';
 const franchise = new Franchise();
-const hostname = window.location.hostname;
+const hostname = window.location.host;
 const subdomain = hostname.split('.');
 class MainLandin extends React.Component {
 
