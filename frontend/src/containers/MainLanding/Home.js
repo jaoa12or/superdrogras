@@ -17,7 +17,7 @@ class MainLandin extends React.Component {
         var self = this;
         if (subdomain && subdomain.length > 1)
             franchise.getFranchiseByURL(this.state.route).then((result) => {
-                self.setState({ franchise: result.data, })
+                self.setState({ franchise: result, })
             });
     };
 

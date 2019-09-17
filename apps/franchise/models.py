@@ -19,7 +19,7 @@ from django.utils.html import escape
 
 class Franchise(TenantMixin):
     """
-    Modelo que representará a los tenants en el sistema
+    Modelo que representará a los tenants en el sistema(franquicia)
     """
     name = models.CharField(max_length=100, verbose_name='nombre de la franquicia *')
     description = models.CharField(max_length=100, verbose_name='descripción de la franquicia *')
@@ -37,7 +37,7 @@ class Franchise(TenantMixin):
 
 class Domain(DomainMixin):
     """
-    Modelo que representará al dominio en el sistema
+    Modelo que representará al dominio del tenant en el sistema
     """
     pass
 
