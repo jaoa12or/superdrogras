@@ -114,7 +114,7 @@ def create_franchise(request):
             try:
                 """
                 La operación se maneja como transaccional dado que involucra la creación de más de un objeto los cuales
-                estan relacionados
+                estan relacionados de alguna forma
                 """
                 with transaction.atomic():
                     franchise = form.save()
