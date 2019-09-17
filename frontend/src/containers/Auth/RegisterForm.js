@@ -25,6 +25,7 @@ class UserRegisterForm extends React.Component{
                 password: '',
                 password2: '',
             },
+            waiting: false,
             show: false,
             created: false,
             subdomain: '',
@@ -34,10 +35,11 @@ class UserRegisterForm extends React.Component{
         this.onChangeField = this.onChangeField.bind(this);
         this.onError = this.onError.bind(this);      
         this.onSubmit = this.onSubmit.bind(this); 
+        this.onRedirect = this.onRedirect.bind(this); 
     };
 
     async componentDidMount(){
-        //Si es edición, se carga el objeto
+
     }
    
 
@@ -55,11 +57,15 @@ class UserRegisterForm extends React.Component{
         //Frenar el submit
         e.preventDefault();
 
+        this.setState({waiting: true});
+
         if (!this.checkSubdomain()) {
+            this.setState({waiting: false});
             return false;
         }
 
         if (!this.checkPassword()) {
+            this.setState({waiting: false});
             return false;
         }
         
@@ -78,9 +84,21 @@ class UserRegisterForm extends React.Component{
 
         try{
             const create_user_franchise = await createUserFranchise(form_data);
-            if (typeof create_user_franchise.token !== 'undefined') {
-                console.log(create_user_franchise);
+            console.log(create_user_franchise);
+            if (typeof create_user_franchise.subdomain !== 'undefined') {
+                this.setState({
+                    subdomain: create_user_franchise.subdomain,
+                    created: true,
+                    show: true,
+                    waiting: false,
+                });
+                this.resetState();
             }else{
+                this.setState({
+                    show: false,
+                    created: false,
+                    waiting: false,
+                });
                 this.setState({errors: create_user_franchise});
             }
         }catch(error){
@@ -130,7 +148,36 @@ class UserRegisterForm extends React.Component{
     }
 
     onRedirect = () => {
-        
+        const subdomain = this.state.subdomain;
+        const protocol = window.location.protocol;
+        const hostname = window.location.hostname;
+        const port = window.location.port;
+        let url = "";
+        if (this.state.created){
+            url = protocol+"//"+subdomain+"."+hostname+":"+port;
+        }else{
+            url = protocol+"//"+hostname+":"+port;
+        }
+        window.location.href = url;
+    }
+
+    resetState = () => {
+        this.setState(prevState => {
+            let user = Object.assign({}, prevState.user); 
+            user['franchise'] = '';
+            user['domain'] = '';
+            user['address'] = '';
+            user['phone'] = '';
+            user['description'] = '';
+            user['username'] = '';
+            user['first_name'] = '';
+            user['last_name'] = '';
+            user['phone2'] = '';
+            user['email'] = '';
+            user['password'] = '';
+            user['password2'] = '';
+            return { user };                                 
+        });
     }
 
     onError(item){  
@@ -144,6 +191,7 @@ class UserRegisterForm extends React.Component{
         const { 
             isLoaded, 
             user,
+            waiting,
             show,
             subdomain, 
             created,
@@ -159,6 +207,7 @@ class UserRegisterForm extends React.Component{
                 <>
                     <RegisterFormPage
                         user = {user}
+                        waiting = {waiting}
                         errors = {errors}
                         onChangeField = {this.onChangeField}
                         onError = {this.onError}

@@ -304,8 +304,9 @@ def create_franchise_user(request):
                     user.is_superuser = False
                     user.save()
                     connection.set_schema_to_public() #conecando volviendo al schema actual
-                    return Response({'success':True})
-            except Exception:
+                    return Response({'subdomain':franchise.schema_name,'success':True})
+            except Exception as e:
+                print('Failed to upload to ftp: '+ str(e))
                 return Response({'success':False})
 
 

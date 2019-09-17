@@ -103,6 +103,7 @@ function LoginPage(props){
                                 
                                 <button type="submit" className="btn btn-primary shadow-2 mb-4">Ingresar</button>
                                 <p className="mb-0 text-muted">Olvidaste la contraseña? <NavLink to="/reset-email">Click aquí</NavLink></p>
+                                <p className="mb-0 text-muted">Registrarse <NavLink to="/register">Click aquí</NavLink></p>
                             </form>
                         </div>
                     </div>

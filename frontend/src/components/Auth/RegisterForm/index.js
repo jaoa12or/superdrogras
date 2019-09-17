@@ -5,11 +5,13 @@ import Aux from "../../../hoc/_Aux";
 import Breadcrumb from "../../../App/layout/AdminLayout/Breadcrumb";
 import logo from '../../../assets/images/landing_logo.png';
 import {Link, Button} from 'rebass';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function RegisterPage(props){
     const {
         user,
+        waiting,
         onChangeField,
         onError,
         onSubmit,
@@ -238,7 +240,16 @@ function RegisterPage(props){
                                         </div>  
                                     </div>
                                 </div>
-                                <Button type="submit" variant="secondary" bg="purple">Registrarse</Button>
+                                {
+                                    !waiting ?
+                                    <Button type="submit" variant="secondary" bg="purple">Registrarse</Button> :
+                                    <Button type="button" variant="secondary" bg="purple">
+                                        Enviando
+                                        <Spinner animation="grow" size="sm" variant="success"/>
+                                        <Spinner animation="grow" size="sm" variant="danger"/>
+                                        <Spinner animation="grow" size="sm" variant="warning"/>
+                                    </Button>
+                                }
                             </form>
                         </div>
                     </div>

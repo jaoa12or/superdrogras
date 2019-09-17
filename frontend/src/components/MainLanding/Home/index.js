@@ -14,8 +14,6 @@ import {
     NavLink, 
     Small,
     Flex,
-    Button,
-    Link,
  } from 'rebass';
 import {
     Hero, 
@@ -28,10 +26,6 @@ import {
 } from 'react-landing-page';
 
 function MainLandingHomePage(props){
-    const {
-        data
-    } = props;
-    
     return (
         <Provider>
             <Relative pb={5}>
