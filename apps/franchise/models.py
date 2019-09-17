@@ -37,7 +37,7 @@ class Franchise(TenantMixin):
 
 class Domain(DomainMixin):
     """
-    Modelo que representará al dominio en el sistema
+    Modelo que representará al dominio del tenant en el sistema
     """
     pass
 
