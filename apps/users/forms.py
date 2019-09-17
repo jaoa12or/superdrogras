@@ -32,5 +32,6 @@ class UserForm(UserCreationForm):
             'email', 
             'address', 
             'is_active',
+            'image',
             'password1', 
             'password2',)

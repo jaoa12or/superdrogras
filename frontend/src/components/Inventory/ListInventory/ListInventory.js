@@ -17,7 +17,7 @@ class ListInventory extends React.Component {
     componentDidMount() {
         var self = this;
         inventory.getInventories().then(function (result) {
-            self.setState({ inventories:  result.results})
+            self.setState({ inventories:  result})
         });
     }
 
@@ -32,7 +32,6 @@ class ListInventory extends React.Component {
 
     render() {
         console.log(typeof(this.state.inventories));
-        let items = [];
         return (
             <Aux>
                 <Row>

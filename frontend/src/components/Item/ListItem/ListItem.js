@@ -17,7 +17,7 @@ class ListItems extends React.Component {
     componentDidMount() {
         var self = this;
         item.getItems().then(function (result) {
-            self.setState({ items:  result.results})
+            self.setState({ items:  result})
         });
     }
 
@@ -31,7 +31,6 @@ class ListItems extends React.Component {
     }
 
     render() {
-        let items = [];
         return (
             <Aux>
                 <Row>
