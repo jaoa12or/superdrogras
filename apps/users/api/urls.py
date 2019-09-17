@@ -12,5 +12,6 @@ urlpatterns = [
 	path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 	path('google/', GoogleView.as_view(), name='google'),  # add path for google authentication
 	path('facebook/', FacebokView.as_view(), name='facebook'),  # add path for google authentication
+	path('create_franchise_user/', create_franchise_user),
 	path('', include(router.urls)),
 ]

@@ -23,6 +23,12 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 
+from apps.franchise.models import Franchise, Domain
+from apps.franchise.forms import FranchiseForm, UpdateFranchiseForm
+from apps.franchise.serializers import FranchiseSerializer
+from django.db import transaction
+from django.db import connection
+
 
 
 
@@ -194,3 +200,113 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     msg.send()
+
+@api_view(['POST']) 
+def create_franchise_user(request):
+    if request.method == 'POST':
+        errors = {}
+        isset_error = False
+
+        """
+        Verificar todos los campos antes de crear
+        """
+        name = request.POST.get('name', '')
+        if name == '':
+            errors['franchise'] = ['Debe especificar un nombre']
+            isset_error = True
+        schema_name = request.POST.get('schema_name', '')
+        if schema_name == '':
+            errors['domain'] = ['Debe especificar un subdominio']
+            isset_error = True
+        address = request.POST.get('address', '')
+        if address == '':
+            errors['address'] = ['Debe especificar una dirección']
+            isset_error = True
+        phone = request.POST.get('phone', '')
+        if phone == '':
+            errors['phone'] = ['Debe especificar un teléfono']
+            isset_error = True
+        description = request.POST.get('description', '')
+        if description == '':
+            errors['description'] = ['Debe especificar una descripción']
+            isset_error = True
+        username = request.POST.get('username', '')
+        if username == '':
+            errors['username'] = ['Debe especificar un nombre de usuario']
+            isset_error = True
+        first_name = request.POST.get('first_name', '')
+        if first_name == '':
+            errors['first_name'] = ['Debe especificar un nombre']
+            isset_error = True
+        last_name = request.POST.get('last_name', '')
+        phone2 = request.POST.get('phone2', '')
+        if phone2 == '':
+            errors['phone2'] = ['Debe especificar un teléfono']
+            isset_error = True
+        email = request.POST.get('email', '')
+        if email == '':
+            errors['email'] = ['Debe especificar un email válido']
+            isset_error = True
+        password = request.POST.get('password', '')
+        if password == '':
+            errors['password'] = ['Debe especificar un password']
+            isset_error = True
+        """
+        Verificar que no haya un dominio repetido
+        """
+        domains = Domain.objects.all()
+        for domain in domains:
+            domain_name = domain.domain.split(".")[0]
+            if domain != '':
+                if schema_name == domain_name:
+                    errors['domain'] = ['Ya existe el subdominio']
+                    isset_error = True
+                    break
+
+        """
+        Cuando hay algun error se retorna antes de crear
+        """
+        if isset_error:
+            return Response(errors)
+
+        """
+        Se procede a crear el tenant y el usuario
+        """
+        form = FranchiseForm(request.POST)
+        if form.is_valid():
+            try:
+                """
+                La operación se maneja como transaccional dado que involucra la creación de más de un objeto los cuales
+                estan relacionados
+                """
+                with transaction.atomic():
+                    franchise = form.save()
+                    """
+                    Se crea el dominio y se le asocia información alojada en el tenant. En este punto es que sucede la
+                    creación del esquema del tenant en la base de datos
+                    """
+                    Domain.objects.create(domain='%s%s' % (franchise.schema_name, settings.DOMAIN), is_primary=True, tenant=franchise)
+
+                    """
+                    Una vez creada la francquicia y el dominio, se procede a crear el usuario
+                    """
+                    connection.set_schema(franchise.schema_name) #conecando al schema recien creado
+                    user = User()
+                    user.first_name = first_name
+                    user.last_name = last_name
+                    user.username = username
+                    user.email = email
+                    user.set_password(password)
+                    user.phone2 = phone2
+                    user.date_joined = timezone.now()
+                    user.is_staff = False
+                    user.is_active = True
+                    user.is_superuser = False
+                    user.save()
+                    connection.set_schema_to_public() #conecando volviendo al schema actual
+                    return Response({'success':True})
+            except Exception:
+                return Response({'success':False})
+
+
+    return Response({})
