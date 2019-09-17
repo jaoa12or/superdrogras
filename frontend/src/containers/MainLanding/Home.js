@@ -15,7 +15,7 @@ class MainLandin extends React.Component {
         super(props);
         this.state = {
             franchise: [],
-            route: '?subdomain=' + subdomain[0],
+            route: '?subdomain=' + subdomain,
             name: '',
         };
         var self = this;
